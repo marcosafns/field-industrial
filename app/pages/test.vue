@@ -351,8 +351,8 @@ const resetForm = () => {
   calendarValue.value = null
 }
 
-/* ---------- SUBMIT ---------- */
-const submitForm = () => {
+/* ---------- SUBMIT (agora usando API /api/send-email) ---------- */
+const submitForm = async () => {
   if (
     !form.date ||
     !form.tipo ||
@@ -365,7 +365,7 @@ const submitForm = () => {
     return
   }
 
-  // 🔴 VALIDAÇÃO DE CPF (precisa ter 11 dígitos reais)
+  // validação de CPF (11 dígitos)
   const cpfDigits = form.cpf.replace(/\D/g, '')
   if (cpfDigits.length !== 11) {
     showToast('Por favor, insira um CPF válido (11 dígitos).', 'error')
@@ -377,53 +377,24 @@ const submitForm = () => {
     return
   }
 
+  try {
+    showToast('Enviando solicitação...', 'warning', 4000)
 
-  if (!isValidEmail(form.email)) {
-    showToast('Por favor, insira um e-mail válido.', 'error')
-    return
+    await $fetch('/api/send-email', {
+      method: 'POST',
+      body: { ...form }
+    })
+
+    showToast('Solicitação enviada com sucesso.', 'success')
+    // se quiser limpar depois:
+    // resetForm()
+  } catch (err) {
+    console.error(err)
+    showToast('Erro ao enviar a solicitação. Tente novamente.', 'error')
   }
-
-  const tipoLabelPretty = getTipoLabel(form.tipo)
-  const tipoUpper = upper(tipoLabelPretty)
-  const empresaUpper = upper(form.empresa)
-  const assuntoUpper = upper(form.assunto)
-  const nomeUpper = upper(form.nome)
-  const cargoUpper = upper(form.cargo)
-  const localUpper = upper(form.local)
-  const cpfFormatted = formatCpfPlain(form.cpf)
-
-  const subject = `SOLICITAÇÃO DE ${tipoUpper} - ${empresaUpper}`
-
-  const body = `
-Prezados,
-
-Segue abaixo uma nova solicitação de agendamento enviada pelo site:
-
-Dados do agendamento:
-- Data do agendamento: ${form.date}
-- Assunto detalhado: ${assuntoUpper}
-
-Dados do solicitante:
-- Nome: ${nomeUpper}
-- CPF: ${cpfFormatted}
-- Cargo: ${cargoUpper}
-- Empresa: ${empresaUpper}
-- Local: ${localUpper}
-- E-mail: ${form.email}
-
-Atenciosamente,
-Portal de Agendamentos
-`.trim()
-
-  const mailtoLink = `mailto:vi.tinho20@hotmail.com?subject=${encodeURIComponent(
-    subject
-  )}&body=${encodeURIComponent(body)}`
-
-  window.location.href = mailtoLink
-
-  showToast('Solicitação preparada no seu cliente de e-mail.', 'success')
 }
 </script>
+
 
 <style>
 @keyframes slide-up {

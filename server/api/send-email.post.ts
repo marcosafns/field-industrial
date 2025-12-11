@@ -1,6 +1,7 @@
 import { defineEventHandler, readBody } from 'h3'
 import nodemailer from 'nodemailer'
 import crypto from 'node:crypto'
+import { getDb } from '../utils/db'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
@@ -26,6 +27,27 @@ export default defineEventHandler(async (event) => {
   const solicitacaoUrl = `${process.env.SITE_URL}/solicitacao/${id}`
 
   const subject = `SOLICITAÇÃO DE ${tipoUpper} - ${empresaUpper}`
+
+// 🔹 1) Salvar no banco
+  const db = getDb()
+  await db.query(
+    `INSERT INTO solicitacoes
+      (id, data_agendamento, tipo, assunto, nome, cpf, cargo, empresa, local_atendimento, email, status)
+     VALUES (?, STR_TO_DATE(?, '%d/%m/%Y'), ?, ?, ?, ?, ?, ?, ?, ?, 'PENDENTE')`,
+    [
+      id,
+      body.date,
+      tipoPretty,
+      body.assunto,
+      body.nome,
+      body.cpf,
+      body.cargo,
+      body.empresa,
+      body.local,
+      body.email
+    ]
+  )
+
 
   const html = `
   <html>
@@ -82,12 +104,16 @@ export default defineEventHandler(async (event) => {
     }
   })
 
-  await transporter.sendMail({
-    from: process.env.SMTP_FROM,
-    to: 'vi.tinho20@hotmail.com',
-    subject,
-    html
-  })
+const smtpUser = process.env.SMTP_USER || ''
+
+await transporter.sendMail({
+  from: `"Portal de Agendamentos" <${smtpUser}>`,
+  to: 'vi.tinho20@hotmail.com',
+  subject,
+  html
+})
+
+
 
   return { ok: true, id }
 })
