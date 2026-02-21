@@ -7,5 +7,5 @@ export default defineNuxtConfig({
     families: [
       { name: 'Lato', provider: 'google' }, // Substituindo Montserrat por Roboto
     ]
-  }
+  },
 })

@@ -18,6 +18,3 @@ import Footer from '~/components/Footer.vue';
 import Header from '~/components/Header.vue';
 </script>
 
-<style scoped>
-/* Se necessário, você pode adicionar estilos específicos aqui */
-</style>

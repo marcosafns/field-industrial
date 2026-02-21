@@ -16,18 +16,22 @@
     "@nuxt/icon": "^2.1.0",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.14.0",
+    "bcrypt": "^6.0.0",
+    "jsonwebtoken": "^9.0.3",
     "lucide": "^0.556.0",
     "lucide-vue-next": "^0.556.0",
-    "mysql2": "^3.15.3",
-    "nodemailer": "^7.0.11",
+    "mysql2": "^3.17.3",
+    "nodemailer": "^7.0.13",
     "nuxt": "^4.2.1",
     "v-calendar": "^3.1.2",
     "vue": "^3.5.25",
     "vue-router": "^4.6.3"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.10.2",
-    "@types/nodemailer": "^7.0.4",
+    "@types/nodemailer": "^7.0.10",
     "nuxi": "^3.31.1"
   }
 }

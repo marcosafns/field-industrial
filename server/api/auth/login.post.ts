@@ -1,51 +1,35 @@
-import { defineEventHandler, readBody, createError } from 'h3'
-import { getDb } from '../../utils/db'
+import bcrypt from 'bcrypt'
+import pool from '../../utils/db'
+import { signToken } from '../../utils/auth'
+import { sendEmail } from '../../utils/mailer'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
-  const email = (body.email || '').toString().trim()
-  const senha = (body.senha || '').toString().trim()
+  const { email, password } = body
 
-  if (!email || !senha) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'E-mail e senha são obrigatórios.'
-    })
+  if (!email || !password) {
+    throw createError({ statusCode: 400, message: 'Email e senha obrigatórios' })
   }
 
-  const db = getDb()
+  const [rows] = await pool.query('SELECT * FROM admins WHERE email = ?', [email]) as any
+  const admin = rows[0]
 
-  const [rows] = await db.query(
-    'SELECT * FROM engenheiros WHERE email = ? LIMIT 1',
-    [email]
-  )
-
-  // mysql2/promise retorna [rows, fields]
-  const lista = rows as any[]
-
-  if (!lista || lista.length === 0) {
-    throw createError({
-      statusCode: 401,
-      statusMessage: 'Credenciais inválidas.'
-    })
+  if (!admin) {
+    throw createError({ statusCode: 401, message: 'Credenciais inválidas' })
   }
 
-  const engenheiro = lista[0]
-
-  // ⚠️ DEV ONLY: comparando senha em texto puro
-  if (engenheiro.senha !== senha) {
-    throw createError({
-      statusCode: 401,
-      statusMessage: 'Credenciais inválidas.'
-    })
+  const valid = await bcrypt.compare(password, admin.password)
+  if (!valid) {
+    throw createError({ statusCode: 401, message: 'Credenciais inválidas' })
   }
 
-  // se chegou aqui, login ok
-  return {
-    ok: true,
-    id: engenheiro.id,
-    nome: engenheiro.nome,
-    email: engenheiro.email,
-    is_admin: !!engenheiro.is_admin
-  }
+  const token = signToken({ id: admin.id, email: admin.email, name: admin.name })
+
+  setCookie(event, 'admin_token', token, {
+    httpOnly: true,
+    maxAge: 60 * 60 * 24 * 30, // 30 dias
+    path: '/',
+  })
+
+  return { ok: true, name: admin.name }
 })
