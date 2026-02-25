@@ -50,20 +50,122 @@
           <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">Pessoas</span>
           <h2 class="scroll-reveal scroll-reveal-delay-1 text-3xl md:text-4xl font-black text-gray-900 mt-3">Nossa Equipe</h2>
           <div class="scroll-reveal scroll-reveal-delay-2 w-12 h-1 bg-[#f17b21] mx-auto mt-4 rounded-full" />
+          <p class="scroll-reveal scroll-reveal-delay-3 text-gray-500 text-sm mt-4 max-w-xl mx-auto">
+            Profissionais especializados, certificados e comprometidos com a excelência técnica em cada projeto.
+          </p>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div
+          class="grid gap-8"
+          :class="team.length === 1 ? 'grid-cols-1 max-w-sm mx-auto' :
+                  team.length === 2 ? 'grid-cols-1 sm:grid-cols-2 max-w-2xl mx-auto' :
+                  'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'"
+        >
           <div
             v-for="(member, i) in team"
             :key="member.name"
-            class="scroll-reveal bg-white rounded-3xl p-8 border border-gray-100 hover:shadow-xl hover:border-orange-200 transition-all duration-300 group text-center"
-            :class="`scroll-reveal-delay-${i + 1}`"
+            class="scroll-reveal bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-xl hover:border-orange-200 transition-all duration-300 group"
+            :class="`scroll-reveal-delay-${Math.min(i + 1, 5)}`"
           >
-            <div class="w-20 h-20 bg-[#f17b21] rounded-2xl mx-auto mb-5 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-              <Icon name="lucide:user" class="w-9 h-9 text-white" />
+            <!-- Header do card -->
+            <div class="bg-gray-950 px-8 pt-8 pb-14 relative">
+              <div class="absolute bottom-0 left-0 right-0 h-8 bg-white rounded-t-3xl" />
+              <div class="flex items-start justify-between">
+                <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                  <img
+                    v-if="member.photo"
+                    :src="member.photo"
+                    :alt="member.name"
+                    class="w-full h-full object-cover"
+                  />
+                  <div
+                    v-else
+                    class="w-full h-full bg-[#f17b21] flex items-center justify-center"
+                  >
+                    <Icon name="lucide:user" class="w-8 h-8 text-white" />
+                  </div>
+                </div>
+                <div class="flex flex-col gap-1.5 items-end">
+                  <span
+                    v-for="cert in member.certifications"
+                    :key="cert"
+                    class="text-xs font-bold px-2.5 py-1 rounded-full bg-[#f17b21]/20 text-[#f17b21]"
+                  >{{ cert }}</span>
+                </div>
+              </div>
             </div>
-            <h3 class="font-bold text-gray-900 text-lg">{{ member.name }}</h3>
-            <p class="text-[#f17b21] text-sm font-semibold mt-1">{{ member.role }}</p>
-            <p class="text-gray-500 text-sm mt-3 leading-relaxed">{{ member.bio }}</p>
+
+            <!-- Conteúdo -->
+            <div class="px-8 pb-8">
+              <h3 class="font-black text-gray-900 text-xl mt-1">{{ member.name }}</h3>
+              <p class="text-[#f17b21] text-sm font-bold mt-0.5">{{ member.role }}</p>
+              <p class="text-gray-500 text-sm mt-4 leading-relaxed">{{ member.bio }}</p>
+
+              <!-- Especialidades -->
+              <div v-if="member.specialties?.length" class="mt-5">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Especialidades</p>
+                <div class="flex flex-wrap gap-2">
+                  <span
+                    v-for="spec in member.specialties"
+                    :key="spec"
+                    class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600 font-medium"
+                  >{{ spec }}</span>
+                </div>
+              </div>
+
+              <!-- Contato -->
+              <div v-if="member.email || member.linkedin" class="mt-5 flex items-center gap-3 pt-5 border-t border-gray-100">
+                <NuxtLink
+                  v-if="member.linkedin"
+                  :to="member.linkedin"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  external
+                  class="flex items-center gap-1.5 text-xs text-gray-400 hover:text-[#f17b21] transition-colors duration-200"
+                >
+                  <Icon name="lucide:linkedin" class="w-3.5 h-3.5" />
+                  LinkedIn
+                </NuxtLink>
+                <NuxtLink
+                  v-if="member.email"
+                  :to="`mailto:${member.email}`"
+                  external
+                  class="flex items-center gap-1.5 text-xs text-gray-400 hover:text-[#f17b21] transition-colors duration-200"
+                >
+                  <Icon name="lucide:mail" class="w-3.5 h-3.5" />
+                  {{ member.email }}
+                </NuxtLink>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Clientes -->
+    <section class="py-24 px-4 bg-white">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">Confiança</span>
+          <h2 class="scroll-reveal scroll-reveal-delay-1 text-3xl md:text-4xl font-black text-gray-900 mt-3">Nossos Principais Clientes</h2>
+          <div class="scroll-reveal scroll-reveal-delay-2 w-12 h-1 bg-[#f17b21] mx-auto mt-4 rounded-full" />
+          <p class="scroll-reveal scroll-reveal-delay-3 text-gray-500 text-sm mt-4 max-w-xl mx-auto">
+            Empresas que confiam na excelência técnica da Field Industrial.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+          <div
+            v-for="(client, i) in clients"
+            :key="client.name"
+            class="scroll-reveal flex items-center justify-center p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:border-orange-200 hover:bg-orange-50 hover:shadow-md transition-all duration-300 group"
+            :class="`scroll-reveal-delay-${Math.min(i + 1, 5)}`"
+          >
+            <img
+              :src="client.logo"
+              :alt="client.name"
+              class="max-h-14 max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100"
+            />
           </div>
         </div>
       </div>
@@ -118,16 +220,34 @@
 useSeoMeta({ title: 'Quem Somos — Field Industrial' })
 
 const stats = [
-  { value: '10+', label: 'Anos de experiência' },
+  { value: '18+', label: 'Anos de experiência' },
   { value: '200+', label: 'Projetos concluídos' },
   { value: '50+', label: 'Clientes atendidos' },
   { value: '100%', label: 'Conformidade normativa' },
 ]
 
+const clients = [
+  { name: 'Bracell', logo: '/img/clients/bracell.png' },
+  { name: 'Bracell Papéis', logo: '/img/clients/bracell-papeis.png' },
+  { name: 'Barbieri', logo: '/img/clients/barbieri.png' },
+  { name: 'Micro Metal', logo: '/img/clients/micrometal.png' },
+  { name: 'Grupo Água Bonita', logo: '/img/clients/aguabonita.png' },
+  { name: 'Mills', logo: '/img/clients/mills.png' },
+  { name: 'Quality Seg', logo: '/img/clients/qualityseg.png' },
+  { name: 'Wolmec', logo: '/img/clients/wolmec.png' },
+]
+
 const team = [
-  { name: 'Engenheiro Responsável', role: 'Diretor Técnico', bio: 'Especialista em inspeção de equipamentos e conformidade com NR-13 e códigos ASME, com mais de 10 anos de experiência.' },
-  { name: 'Inspetor Sênior', role: 'Inspeção & Soldagem', bio: 'Certificado em inspeção de soldagem e caldeiraria, com vasta experiência em projetos de grande porte.' },
-  { name: 'Engenheiro de Projetos', role: 'Projetos Mecânicos', bio: 'Responsável pelo desenvolvimento de projetos detalhados e memoriais de cálculo para equipamentos industriais.' },
+  {
+    name: 'Fernando Lima',
+    role: 'Diretor Técnico',
+    bio: 'Especialista em inspeção de equipamentos e conformidade com NR-13 e códigos ASME, com mais de 10 anos de experiência no setor industrial.',
+    certifications: ['CREA', 'NR-13'],
+    specialties: ['Vasos de Pressão', 'Caldeiras', 'NR-13', 'ASME', 'Laudos Técnicos'],
+    linkedin: 'https://www.linkedin.com/in/fh-lima/',
+    email: 'fernando@fieldindustrial.com.br',
+    photo: '/img/team/fernando.jpeg',
+  },
 ]
 
 const certifications = [

@@ -60,10 +60,36 @@
               {{ meeting.company || '—' }}
             </div>
             <div class="flex items-center gap-2 text-sm text-gray-600">
+              <Icon name="lucide:briefcase" class="w-4 h-4 text-[#f17b21]" />
+              {{ meeting.role || '—' }}
+            </div>
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+              <Icon name="lucide:map-pin" class="w-4 h-4 text-[#f17b21]" />
+              {{ meeting.city_state || '—' }}
+            </div>
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+              <Icon name="lucide:hash" class="w-4 h-4 text-[#f17b21]" />
+              {{ meeting.cnpj || '—' }}
+            </div>
+            <div class="flex items-center gap-2 text-sm text-gray-600">
               <Icon name="lucide:calendar" class="w-4 h-4 text-[#f17b21]" />
               {{ meeting.preferred_date ? formatDate(meeting.preferred_date) : '—' }}
               {{ meeting.preferred_time ? `às ${meeting.preferred_time}` : '' }}
             </div>
+            <div class="flex items-center gap-2 text-sm text-gray-600">
+              <Icon name="lucide:alert-circle" class="w-4 h-4 text-[#f17b21]" />
+              <span :class="urgencyClass(meeting.urgency)">{{ urgencyLabel(meeting.urgency) }}</span>
+            </div>
+          </div>
+
+          <!-- Tipo de serviço -->
+          <div v-if="meeting.service_type" class="mt-4 pt-4 border-t border-gray-50">
+            <span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-orange-50 text-[#f17b21]">
+              {{ serviceLabel(meeting.service_type) }}
+            </span>
+            <span v-if="meeting.equipment_type" class="ml-2 text-xs text-gray-400">
+              {{ meeting.equipment_type }}
+            </span>
           </div>
         </div>
 
@@ -117,7 +143,6 @@
             <Icon name="lucide:user-check" class="w-4 h-4 text-gray-400" />
             <h2 class="font-semibold text-gray-900">Responsável</h2>
           </div>
-
           <div v-if="!meeting.assigned_to" class="mb-4">
             <p class="text-xs text-gray-400 mb-3">Nenhum responsável atribuído</p>
             <button
@@ -129,7 +154,6 @@
               Assumir responsabilidade
             </button>
           </div>
-
           <div v-else class="mb-4">
             <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl mb-3">
               <div class="w-8 h-8 rounded-lg bg-[#f17b21] flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
@@ -141,7 +165,6 @@
               </div>
             </div>
           </div>
-
           <label class="text-xs text-gray-400 mb-1 block">Atribuir para</label>
           <select
             v-model="selectedAdmin"
@@ -161,6 +184,43 @@
             <Icon name="lucide:user-plus" class="w-4 h-4" />
             Atribuir
           </button>
+        </div>
+
+        <!-- Proposta -->
+        <div class="bg-white border border-gray-100 rounded-2xl p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <Icon name="lucide:file-check" class="w-4 h-4 text-gray-400" />
+            <h2 class="font-semibold text-gray-900">Proposta</h2>
+            <span v-if="meeting.proposal_sent_at" class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full ml-auto">Enviada</span>
+          </div>
+
+          <label class="text-xs text-gray-400 mb-1 block">Valor (R$)</label>
+          <input
+            v-model="form.proposal_value"
+            type="number"
+            step="0.01"
+            min="0"
+            placeholder="Ex: 120.00"
+            class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#f17b21] transition-colors duration-200 mb-3"
+          />
+
+          <label class="text-xs text-gray-400 mb-1 block">Link da reunião (Meet / Teams)</label>
+          <input
+            v-model="form.meeting_link"
+            type="url"
+            placeholder="https://meet.google.com/..."
+            class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#f17b21] transition-colors duration-200 mb-3"
+          />
+
+          <p class="text-xs text-gray-400 mb-3 flex items-center gap-1">
+            <Icon name="lucide:info" class="w-3.5 h-3.5" />
+            Será enviado no e-mail ao aprovar com valor preenchido
+          </p>
+
+          <div v-if="meeting.proposal_sent_at" class="text-xs text-gray-400 flex items-center gap-1">
+            <Icon name="lucide:check" class="w-3.5 h-3.5 text-green-500" />
+            Enviada em {{ formatDate(meeting.proposal_sent_at) }}
+          </div>
         </div>
 
         <!-- Ações -->
@@ -222,7 +282,12 @@ const selectedAdmin = ref('')
 const assigning = ref(false)
 
 const toast = ref({ show: false, type: 'success', title: '', message: '' })
-const form = ref({ status: '', admin_response: '' })
+const form = ref({
+  status: '',
+  admin_response: '',
+  proposal_value: '',
+  meeting_link: '',
+})
 
 const actions = [
   { label: 'Aprovar', value: 'approved', icon: 'lucide:check-circle', activeClass: 'bg-green-100 text-green-700' },
@@ -247,6 +312,8 @@ async function fetchMeeting() {
     admins.value = adminsData
     form.value.status = meeting.value.status
     form.value.admin_response = meeting.value.admin_response || ''
+    form.value.proposal_value = meeting.value.proposal_value || ''
+    form.value.meeting_link = meeting.value.meeting_link || ''
     internalNotes.value = meeting.value.internal_notes || ''
   } finally {
     loading.value = false
@@ -312,7 +379,14 @@ async function assignTo(adminId) {
 }
 
 function statusLabel(status) {
-  return { pending: 'Pendente', approved: 'Aprovada', rejected: 'Recusada', completed: 'Concluída' }[status] ?? status
+  return {
+    pending: 'Pendente',
+    approved: 'Aprovada',
+    rejected: 'Recusada',
+    completed: 'Concluída',
+    confirmed: 'Confirmada pelo cliente ✓',
+    declined: 'Recusada pelo cliente',
+  }[status] ?? status
 }
 
 function statusClass(status) {
@@ -321,7 +395,31 @@ function statusClass(status) {
     approved: 'bg-green-100 text-green-700',
     rejected: 'bg-red-100 text-red-600',
     completed: 'bg-blue-100 text-blue-700',
+    confirmed: 'bg-emerald-100 text-emerald-700',
+    declined: 'bg-rose-100 text-rose-600',
   }[status] ?? 'bg-gray-100 text-gray-600'
+}
+
+function serviceLabel(type) {
+  return {
+    meeting: 'Reunião Inicial',
+    consulting: 'Consultoria Técnica',
+    remote_diagnosis: 'Diagnóstico Remoto',
+    document_analysis: 'Análise de Documentos',
+    budget: 'Solicitar Orçamento',
+  }[type] ?? type
+}
+
+function urgencyLabel(urgency) {
+  return { low: 'Baixa', medium: 'Média', high: 'Alta' }[urgency] ?? '—'
+}
+
+function urgencyClass(urgency) {
+  return {
+    low: 'text-blue-600 font-medium',
+    medium: 'text-yellow-600 font-medium',
+    high: 'text-red-600 font-medium',
+  }[urgency] ?? 'text-gray-500'
 }
 
 function formatDate(date) {
@@ -331,7 +429,7 @@ function formatDate(date) {
 
 onMounted(async () => {
   await fetchMeeting()
-  await $fetch(`/api/meetings/viewed/${route.params.id}`, { method: 'POST' })
+  await $fetch(`/api/meetings/viewed/${route.params.id}`, { method: 'POST' }).catch(() => {})
 })
 </script>
 

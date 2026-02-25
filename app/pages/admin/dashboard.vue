@@ -8,7 +8,7 @@
     </div>
 
     <!-- Cards de métricas -->
-    <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-7 gap-4 mb-8">
       <div
         v-for="metric in metrics"
         :key="metric.label"
@@ -102,7 +102,10 @@
               <span class="text-xs text-orange-300 leading-none mt-0.5">{{ formatMonth(meeting.preferred_date) }}</span>
             </div>
             <div class="flex-1 min-w-0">
-              <p class="text-sm font-semibold text-gray-900 group-hover:text-[#f17b21] transition-colors duration-200 truncate">{{ meeting.name }}</p>
+              <div class="flex items-center gap-1.5">
+                <p class="text-sm font-semibold text-gray-900 group-hover:text-[#f17b21] transition-colors duration-200 truncate">{{ meeting.name }}</p>
+                <Icon v-if="meeting.status === 'confirmed'" name="lucide:check-circle-2" class="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
+              </div>
               <p class="text-xs text-gray-400 truncate">{{ meeting.company || meeting.email }}</p>
             </div>
             <div class="flex flex-col items-end gap-1 flex-shrink-0">
@@ -180,6 +183,8 @@ const metrics = computed(() => {
     { label: 'Total', value: all.length, icon: 'lucide:inbox', color: '#6b7280', bg: '#f3f4f6' },
     { label: 'Pendentes', value: all.filter(m => m.status === 'pending').length, icon: 'lucide:clock', color: '#d97706', bg: '#fef3c7' },
     { label: 'Aprovadas', value: all.filter(m => m.status === 'approved').length, icon: 'lucide:check-circle', color: '#16a34a', bg: '#dcfce7' },
+    { label: 'Confirmadas', value: all.filter(m => m.status === 'confirmed').length, icon: 'lucide:check-circle-2', color: '#059669', bg: '#d1fae5' },
+    { label: 'Recusadas cliente', value: all.filter(m => m.status === 'declined').length, icon: 'lucide:user-x', color: '#e11d48', bg: '#ffe4e6' },
     { label: 'Concluídas', value: all.filter(m => m.status === 'completed').length, icon: 'lucide:check-check', color: '#2563eb', bg: '#dbeafe' },
     { label: 'Recusadas', value: all.filter(m => m.status === 'rejected').length, icon: 'lucide:x-circle', color: '#dc2626', bg: '#fee2e2' },
   ]
@@ -188,7 +193,7 @@ const metrics = computed(() => {
 const upcomingMeetings = computed(() => {
   const today = new Date().toISOString().substring(0, 10)
   return meetings.value
-    .filter(m => m.preferred_date && m.preferred_date.substring(0, 10) >= today)
+    .filter(m => m.preferred_date && m.preferred_date.substring(0, 10) >= today && m.status !== 'rejected' && m.status !== 'declined')
     .sort((a, b) => a.preferred_date.localeCompare(b.preferred_date))
     .slice(0, 5)
 })
@@ -202,6 +207,8 @@ const recentMeetings = computed(() =>
 const pieLabels = computed(() => [
   { label: 'Pendentes', color: '#d97706', value: meetings.value.filter(m => m.status === 'pending').length },
   { label: 'Aprovadas', color: '#16a34a', value: meetings.value.filter(m => m.status === 'approved').length },
+  { label: 'Confirmadas', color: '#059669', value: meetings.value.filter(m => m.status === 'confirmed').length },
+  { label: 'Recusadas cliente', color: '#e11d48', value: meetings.value.filter(m => m.status === 'declined').length },
   { label: 'Concluídas', color: '#2563eb', value: meetings.value.filter(m => m.status === 'completed').length },
   { label: 'Recusadas', color: '#dc2626', value: meetings.value.filter(m => m.status === 'rejected').length },
 ])
@@ -255,10 +262,10 @@ function initCharts() {
     new Chart(pieChart.value, {
       type: 'doughnut',
       data: {
-        labels: ['Pendentes', 'Aprovadas', 'Concluídas', 'Recusadas'],
+        labels: pieLabels.value.map(p => p.label),
         datasets: [{
           data: pieLabels.value.map(p => p.value),
-          backgroundColor: ['#d97706', '#16a34a', '#2563eb', '#dc2626'],
+          backgroundColor: pieLabels.value.map(p => p.color),
           borderWidth: 0,
           hoverOffset: 6,
         }],
@@ -274,7 +281,14 @@ function initCharts() {
 }
 
 function statusLabel(s) {
-  return { pending: 'Pendente', approved: 'Aprovada', rejected: 'Recusada', completed: 'Concluída' }[s] ?? s
+  return {
+    pending: 'Pendente',
+    approved: 'Aprovada',
+    rejected: 'Recusada',
+    completed: 'Concluída',
+    confirmed: 'Confirmada ✓',
+    declined: 'Recusada pelo cliente',
+  }[s] ?? s
 }
 
 function statusClass(s) {
@@ -283,6 +297,8 @@ function statusClass(s) {
     approved: 'bg-green-100 text-green-700',
     rejected: 'bg-red-100 text-red-600',
     completed: 'bg-blue-100 text-blue-700',
+    confirmed: 'bg-emerald-100 text-emerald-700',
+    declined: 'bg-rose-100 text-rose-600',
   }[s] ?? 'bg-gray-100 text-gray-600'
 }
 

@@ -30,70 +30,133 @@
           :key="cat"
           @click="activeCategory = cat"
           class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200"
-          :class="activeCategory === cat
-            ? 'bg-[#f17b21] text-white shadow-md'
-            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
+          :class="activeCategory === cat ? 'bg-[#f17b21] text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
         >{{ cat }}</button>
       </div>
     </section>
 
     <!-- Projetos -->
     <section class="py-16 px-4 bg-gray-50">
-    <div class="max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-        <div
+      <div class="max-w-6xl mx-auto">
+        <TransitionGroup name="project-list" tag="div" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
             v-for="project in filteredProjects"
             :key="project.title"
-            class="bg-white rounded-3xl overflow-hidden border border-gray-100 hover:shadow-xl hover:border-orange-200 transition-all duration-300 group"
-        >
+            class="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl hover:border-orange-200 transition-all duration-300 group cursor-pointer flex flex-col"
+            @click="selected = project"
+          >
             <!-- Imagem -->
-            <div class="h-52 overflow-hidden relative">
-            <img
+            <div class="h-44 overflow-hidden relative flex-shrink-0">
+              <img
                 :src="project.image"
                 :alt="project.title"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent opacity-60" />
-            <div class="absolute top-4 left-4">
-                <span class="bg-[#f17b21] text-white text-xs font-bold px-3 py-1 rounded-full">{{ project.category }}</span>
-            </div>
-            <div class="absolute bottom-4 right-4">
-                <span class="bg-white text-gray-700 text-xs font-semibold px-3 py-1 rounded-full opacity-90">{{ project.norm }}</span>
-            </div>
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent opacity-60" />
+              <div class="absolute top-3 left-3">
+                <span class="bg-[#f17b21] text-white text-xs font-bold px-2.5 py-1 rounded-full">{{ project.category }}</span>
+              </div>
+              <div class="absolute bottom-3 right-3">
+                <span class="bg-white/90 text-gray-700 text-xs font-bold px-2.5 py-1 rounded-full">{{ project.norm }}</span>
+              </div>
             </div>
 
             <!-- Conteúdo -->
-            <div class="p-6">
-            <h3 class="font-black text-gray-900 text-lg mb-2 group-hover:text-[#f17b21] transition-colors duration-200">{{ project.title }}</h3>
-            <p class="text-gray-500 text-sm leading-relaxed mb-4">{{ project.desc }}</p>
-            <div class="flex flex-wrap gap-2 mb-5">
+            <div class="p-5 flex flex-col flex-1">
+              <h3 class="text-sm font-black text-gray-900 mb-2 group-hover:text-[#f17b21] transition-colors duration-200 leading-snug line-clamp-2">
+                {{ project.title }}
+              </h3>
+              <p class="text-xs text-gray-400 leading-relaxed line-clamp-2 mb-4">{{ project.desc }}</p>
+
+              <div class="flex flex-wrap gap-1.5 mt-auto mb-4">
                 <span
-                v-for="tag in project.tags"
-                :key="tag"
-                class="bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-1 rounded-full"
+                  v-for="tag in project.tags.slice(0, 3)"
+                  :key="tag"
+                  class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full"
                 >{{ tag }}</span>
-            </div>
-            <div class="flex items-center justify-between">
+                <span v-if="project.tags.length > 3" class="text-xs text-gray-400">+{{ project.tags.length - 3 }}</span>
+              </div>
+
+              <div class="pt-4 border-t border-gray-100 flex items-center justify-between">
                 <p class="text-xs text-gray-400">Valor sob consulta</p>
-                <NuxtLink
-                to="/agendar-reuniao"
-                class="flex items-center gap-1.5 bg-[#f17b21] text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-[#d96a10] transition-colors duration-200"
-                >
-                <Icon name="lucide:mail" class="w-3.5 h-3.5" />
-                Consultar
-                </NuxtLink>
+                <span class="text-xs text-[#f17b21] font-semibold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  Ver detalhes
+                  <Icon name="lucide:arrow-right" class="w-3 h-3" />
+                </span>
+              </div>
             </div>
-            </div>
-        </div>
-        </div>
+          </div>
+        </TransitionGroup>
 
         <!-- Vazio -->
         <div v-if="filteredProjects.length === 0" class="text-center py-20">
-        <Icon name="lucide:inbox" class="w-12 h-12 text-gray-300 mx-auto mb-3" />
-        <p class="text-gray-400">Nenhum projeto nesta categoria.</p>
+          <Icon name="lucide:inbox" class="w-12 h-12 text-gray-300 mx-auto mb-3" />
+          <p class="text-gray-400">Nenhum projeto nesta categoria.</p>
         </div>
-    </div>
+      </div>
     </section>
+
+    <!-- Modal -->
+    <Transition name="modal">
+      <div v-if="selected" class="fixed inset-0 z-50 flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-gray-950/70 backdrop-blur-sm" @click="selected = null" />
+        <div class="relative bg-white rounded-3xl overflow-hidden max-w-2xl w-full shadow-2xl max-h-[90vh] overflow-y-auto">
+
+          <!-- Imagem -->
+          <div class="h-56 overflow-hidden relative">
+            <img :src="selected.image" :alt="selected.title" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent opacity-70" />
+            <button
+              @click="selected = null"
+              class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+            >
+              <Icon name="lucide:x" class="w-5 h-5" />
+            </button>
+            <div class="absolute bottom-4 left-6 flex gap-2">
+              <span class="bg-[#f17b21] text-white text-xs font-bold px-3 py-1 rounded-full">{{ selected.category }}</span>
+              <span class="bg-white/90 text-gray-700 text-xs font-bold px-3 py-1 rounded-full">{{ selected.norm }}</span>
+            </div>
+          </div>
+
+          <!-- Conteúdo -->
+          <div class="p-8">
+            <h2 class="text-xl font-black text-gray-900 mb-3">{{ selected.title }}</h2>
+            <p class="text-gray-500 text-sm leading-relaxed mb-6">{{ selected.desc }}</p>
+
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span
+                v-for="tag in selected.tags"
+                :key="tag"
+                class="bg-orange-50 text-[#f17b21] text-xs font-semibold px-3 py-1 rounded-full"
+              >{{ tag }}</span>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl p-5 mb-6">
+              <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">O que está incluído</p>
+              <div class="flex flex-col gap-2">
+                <div v-for="item in ['Memorial de cálculo completo', 'Desenhos técnicos 2D/3D', 'Especificações de fabricação', 'Documentação normativa', 'Suporte técnico pós-venda']" :key="item"
+                  class="flex items-center gap-2 text-sm text-gray-600">
+                  <Icon name="lucide:check" class="w-4 h-4 text-green-500 flex-shrink-0" />
+                  {{ item }}
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between mb-4">
+              <p class="text-sm text-gray-400">Valor sob consulta — entre em contato para orçamento</p>
+            </div>
+
+            <NuxtLink
+              to="/agendar-reuniao"
+              class="w-full flex items-center justify-center gap-2 bg-[#f17b21] text-white font-bold py-3.5 rounded-xl hover:bg-[#d96a10] transition-colors duration-200"
+            >
+              <Icon name="lucide:mail" class="w-4 h-4" />
+              Consultar este projeto
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
+    </Transition>
 
     <!-- CTA -->
     <section class="py-20 px-4 bg-white border-t border-gray-100">
@@ -117,6 +180,7 @@
 useSeoMeta({ title: 'Projetos à Venda — Field Industrial' })
 
 const activeCategory = ref('Todos')
+const selected = ref(null)
 
 const categories = ['Todos', 'Vasos de Pressão', 'Caldeiras', 'Estruturas Metálicas', 'Tubulações']
 
@@ -215,13 +279,25 @@ onMounted(() => {
 .scroll-reveal-delay-4 { transition-delay: 0.4s; }
 .scroll-reveal-delay-5 { transition-delay: 0.5s; }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+.project-list-enter-active,
+.project-list-leave-active {
+  transition: all 0.25s ease;
 }
-.fade-enter-from,
-.fade-leave-to {
+.project-list-enter-from {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(12px);
+}
+.project-list-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.2s ease;
+}
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
 }
 </style>

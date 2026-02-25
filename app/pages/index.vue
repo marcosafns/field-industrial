@@ -52,9 +52,9 @@
           class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 transition-all duration-700 delay-500"
           :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
         >
-          <NuxtLink to="#servicos" class="text-center bg-[#f17b21] text-white font-semibold px-7 py-3 rounded-full hover:bg-[#d96a10] transition-all duration-300 shadow-lg hover:-translate-y-0.5">Serviços</NuxtLink>
-          <NuxtLink to="#projetos-engenharia" class="text-center bg-white/10 backdrop-blur-sm text-white font-semibold px-7 py-3 rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 hover:-translate-y-0.5">Projetos Técnicos</NuxtLink>
-          <NuxtLink to="#agendar-reuniao" class="text-center bg-transparent text-[#f17b21] font-semibold px-7 py-3 rounded-full border border-[#f17b21] hover:bg-[#f17b21] hover:text-white transition-all duration-300 hover:-translate-y-0.5">Agendar Reunião</NuxtLink>
+          <NuxtLink to="servicos" class="text-center bg-[#f17b21] text-white font-semibold px-7 py-3 rounded-full hover:bg-[#d96a10] transition-all duration-300 shadow-lg hover:-translate-y-0.5">Serviços</NuxtLink>
+          <NuxtLink to="projetos-de-engenharia" class="text-center bg-white/10 backdrop-blur-sm text-white font-semibold px-7 py-3 rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 hover:-translate-y-0.5">Projetos Técnicos</NuxtLink>
+          <NuxtLink to="agendar-reuniao" class="text-center bg-transparent text-[#f17b21] font-semibold px-7 py-3 rounded-full border border-[#f17b21] hover:bg-[#f17b21] hover:text-white transition-all duration-300 hover:-translate-y-0.5">Agendar Reunião</NuxtLink>
         </div>
 
         <!-- Indicador de scroll -->
@@ -148,7 +148,7 @@
           <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
         </div>
         <div class="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 bg-[#f17b21] text-white rounded-2xl px-4 py-3 sm:px-6 sm:py-5 shadow-xl">
-          <p class="text-2xl sm:text-3xl font-bold">4+</p>
+          <p class="text-2xl sm:text-3xl font-bold">18+</p>
           <p class="text-xs sm:text-sm font-medium opacity-90">Anos de experiência</p>
         </div>
         <div class="absolute -top-4 -left-4 w-20 h-20 sm:w-24 sm:h-24 border-2 border-[#f17b21]/30 rounded-2xl -z-10" />
@@ -353,8 +353,8 @@
           </p>
 
           <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
-            <NuxtLink to="#agendar-reuniao" class="bg-[#f17b21] text-white font-semibold px-8 py-3.5 rounded-full hover:bg-[#d96a10] transition-all duration-300 shadow-lg hover:-translate-y-0.5">Agendar Reunião</NuxtLink>
-            <NuxtLink to="#servicos" class="bg-white/10 backdrop-blur-sm text-white font-semibold px-8 py-3.5 rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300 hover:-translate-y-0.5">Ver Serviços</NuxtLink>
+            <NuxtLink to="agendar-reuniao" class="bg-[#f17b21] text-white font-semibold px-8 py-3.5 rounded-full hover:bg-[#d96a10] transition-all duration-300 shadow-lg hover:-translate-y-0.5">Agendar Reunião</NuxtLink>
+            <NuxtLink to="servicos" class="bg-white/10 backdrop-blur-sm text-white font-semibold px-8 py-3.5 rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300 hover:-translate-y-0.5">Ver Serviços</NuxtLink>
           </div>
 
           <div class="flex flex-wrap justify-center gap-4 sm:gap-8 mt-8 sm:mt-12">
@@ -384,7 +384,7 @@ const currentIndex = ref(0)
 const visibleCards = 3
 
 const stats = ref([
-  { label: 'Anos de Experiência', target: 4, current: 0, suffix: '+', icon: 'lucide:calendar-check' },
+  { label: 'Anos de Experiência', target: 18, current: 0, suffix: '+', icon: 'lucide:calendar-check' },
   { label: 'Clientes Atendidos', target: 50, current: 0, suffix: '+', icon: 'lucide:users' },
 ])
 
@@ -521,16 +521,16 @@ const tabs = [
 ]
 
 const projetosEngenharia = [
-  { title: 'Inspeção de Vasos de Pressão', description: 'Avaliação técnica e emissão de laudo de integridade conforme NR-13 e código ASME VIII.', image: '/img/proj1.jpeg', tag: 'NR-13', link: '#projetos-engenharia' },
-  { title: 'Supervisão de Montagem Mecânica', description: 'Supervisão e validação de montagem de estruturas metálicas e equipamentos rotativos.', image: '/img/proj2.jpeg', tag: 'Montagem', link: '#projetos-engenharia' },
-  { title: 'Gestão de Parada de Manutenção', description: 'Planejamento e auditoria de parada geral em planta petroquímica com escopo de 45 dias.', image: '/img/proj3.jpeg', tag: 'Manutenção', link: '#projetos-engenharia' },
-  { title: 'Projeto de Caldeiraria Industrial', description: 'Desenvolvimento de projeto detalhado e fabricação de estrutura metálica sob norma AWS D1.1.', image: '/img/proj4.jpeg', tag: 'Caldeiraria', link: '#projetos-engenharia' },
+  { title: 'Inspeção de Vasos de Pressão', description: 'Avaliação técnica e emissão de laudo de integridade conforme NR-13 e código ASME VIII.', image: '/img/proj1.jpeg', tag: 'NR-13', link: 'projetos-de-engenharia' },
+  { title: 'Supervisão de Montagem Mecânica', description: 'Supervisão e validação de montagem de estruturas metálicas e equipamentos rotativos.', image: '/img/proj2.jpeg', tag: 'Montagem', link: 'projetos-de-engenharia' },
+  { title: 'Gestão de Parada de Manutenção', description: 'Planejamento e auditoria de parada geral em planta petroquímica com escopo de 45 dias.', image: '/img/proj3.jpeg', tag: 'Manutenção', link: 'projetos-de-engenharia' },
+  { title: 'Projeto de Caldeiraria Industrial', description: 'Desenvolvimento de projeto detalhado e fabricação de estrutura metálica sob norma AWS D1.1.', image: '/img/proj4.jpeg', tag: 'Caldeiraria', link: 'projetos-de-engenharia' },
 ]
 
 const projetosVenda = [
-  { title: 'Projeto Estrutural Galpão Industrial', description: 'Projeto completo com memorial de cálculo para galpão metálico de 2.000m².', image: '/img/proj5.jpeg', tag: 'Estrutural', link: '#projetos-venda' },
-  { title: 'Memorial de Cálculo — Vaso de Pressão', description: 'Projeto detalhado de vaso de pressão vertical conforme ASME VIII Div. 1.', image: '/img/proj6.jpeg', tag: 'ASME', link: '#projetos-venda' },
-  { title: 'Projeto de Tubulação Industrial', description: 'Projeto isométrico e stress analysis de linhas de processo conforme ASME B31.3.', image: '/img/proj7.jpeg', tag: 'Tubulação', link: '#projetos-venda' },
+  { title: 'Projeto Estrutural Galpão Industrial', description: 'Projeto completo com memorial de cálculo para galpão metálico de 2.000m².', image: '/img/proj5.jpeg', tag: 'Estrutural', link: 'projetos-a-venda' },
+  { title: 'Memorial de Cálculo — Vaso de Pressão', description: 'Projeto detalhado de vaso de pressão vertical conforme ASME VIII Div. 1.', image: '/img/proj6.jpeg', tag: 'ASME', link: 'projetos-a-venda' },
+  { title: 'Projeto de Tubulação Industrial', description: 'Projeto isométrico e stress analysis de linhas de processo conforme ASME B31.3.', image: '/img/proj7.jpeg', tag: 'Tubulação', link: 'projetos-a-venda' },
 ]
 
 const activeProjects = computed(() =>

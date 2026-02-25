@@ -29,29 +29,36 @@
             v-for="item in navItems"
             :key="item.href"
             :to="item.href"
-            class="relative px-3 py-2 text-sm font-medium text-gray-600 rounded-lg group transition-colors duration-200 hover:text-[#f17b21]"
+            class="relative px-3 py-2 text-sm font-medium rounded-lg group transition-colors duration-200"
+            :class="isActive(item.href)
+              ? 'text-[#f17b21]'
+              : 'text-gray-600 hover:text-[#f17b21]'"
           >
-            <!-- Fundo no hover -->
-            <span class="absolute inset-0 rounded-lg bg-[#f17b21]/0 group-hover:bg-[#f17b21]/8 transition-colors duration-200" />
-            <!-- Texto -->
+            <span
+              class="absolute inset-0 rounded-lg transition-colors duration-200"
+              :class="isActive(item.href) ? 'bg-[#f17b21]/8' : 'bg-[#f17b21]/0 group-hover:bg-[#f17b21]/8'"
+            />
             <span class="relative">{{ item.label }}</span>
-            <!-- Dot indicador -->
-            <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#f17b21] opacity-0 group-hover:opacity-100 transition-all duration-200 scale-0 group-hover:scale-100" />
+            <span
+              class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#f17b21] transition-all duration-200"
+              :class="isActive(item.href) ? 'opacity-100 scale-100' : 'opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100'"
+            />
           </NuxtLink>
         </nav>
 
         <!-- CTA + Mobile button -->
         <div class="flex items-center gap-3">
-          <!-- CTA Desktop -->
           <NuxtLink
-            to="#agendar-reuniao"
-            class="hidden lg:flex items-center gap-2 bg-[#f17b21] text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-[#d96a10] transition-all duration-300 shadow-md hover:shadow-[#f17b21]/30 hover:shadow-lg hover:-translate-y-0.5 group"
+            to="/agendar-reuniao"
+            class="hidden lg:flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-300 shadow-md hover:-translate-y-0.5 group"
+            :class="isActive('/agendar-reuniao')
+              ? 'bg-[#d96a10] text-white shadow-[#f17b21]/40 shadow-lg'
+              : 'bg-[#f17b21] text-white hover:bg-[#d96a10] hover:shadow-[#f17b21]/30 hover:shadow-lg'"
           >
             <Icon name="lucide:calendar" class="w-4 h-4 transition-transform duration-300 group-hover:rotate-12" />
             Agendar Reunião
           </NuxtLink>
 
-          <!-- Botão Mobile -->
           <button
             @click="toggleMenu"
             class="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-xl border border-gray-200 text-gray-600 hover:border-[#f17b21]/40 hover:text-[#f17b21] transition-all duration-200"
@@ -84,17 +91,24 @@
             :key="item.href"
             :to="item.href"
             @click="closeMenu"
-            class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 font-medium hover:bg-[#f17b21]/8 hover:text-[#f17b21] transition-all duration-200 group"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 group"
+            :class="isActive(item.href)
+              ? 'bg-[#f17b21]/8 text-[#f17b21]'
+              : 'text-gray-700 hover:bg-[#f17b21]/8 hover:text-[#f17b21]'"
           >
-            <span class="w-1.5 h-1.5 rounded-full bg-[#f17b21]/40 group-hover:bg-[#f17b21] transition-colors duration-200" />
+            <span
+              class="w-1.5 h-1.5 rounded-full transition-colors duration-200"
+              :class="isActive(item.href) ? 'bg-[#f17b21]' : 'bg-[#f17b21]/40 group-hover:bg-[#f17b21]'"
+            />
             {{ item.label }}
           </NuxtLink>
 
           <div class="pt-2 pb-1">
             <NuxtLink
-              to="#agendar-reuniao"
+              to="/agendar-reuniao"
               @click="closeMenu"
-              class="flex items-center justify-center gap-2 bg-[#f17b21] text-white font-semibold px-5 py-3 rounded-full hover:bg-[#d96a10] transition-all duration-300"
+              class="flex items-center justify-center gap-2 text-white font-semibold px-5 py-3 rounded-full transition-all duration-300"
+              :class="isActive('/agendar-reuniao') ? 'bg-[#d96a10]' : 'bg-[#f17b21] hover:bg-[#d96a10]'"
             >
               <Icon name="lucide:calendar" class="w-4 h-4" />
               Agendar Reunião
@@ -107,36 +121,26 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-
+const route = useRoute()
 const isMenuOpen = ref(false)
 const scrolled = ref(false)
 
-const navItems = ref([
-  { href: 'quem-somos', label: 'Quem Somos' },
-  { href: 'valores', label: 'Valores' },
-  { href: 'servicos', label: 'Serviços' },
-  { href: 'projetos-a-venda', label: 'Projetos à Venda' },
-  { href: 'projetos-de-engenharia', label: 'Projetos de Engenharia' },
-])
+const navItems = [
+  { href: '/quem-somos', label: 'Quem Somos' },
+  { href: '/valores', label: 'Valores' },
+  { href: '/servicos', label: 'Serviços' },
+  { href: '/projetos-a-venda', label: 'Projetos à Venda' },
+  { href: '/projetos-de-engenharia', label: 'Projetos de Engenharia' },
+]
 
-const handleScroll = () => {
-  scrolled.value = window.scrollY > 10
+function isActive(href) {
+  return route.path === href
 }
 
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value
-}
+const handleScroll = () => { scrolled.value = window.scrollY > 10 }
+const toggleMenu = () => { isMenuOpen.value = !isMenuOpen.value }
+const closeMenu = () => { isMenuOpen.value = false }
 
-const closeMenu = () => {
-  isMenuOpen.value = false
-}
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
+onMounted(() => window.addEventListener('scroll', handleScroll))
+onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 </script>

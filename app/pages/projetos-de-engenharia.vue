@@ -16,12 +16,7 @@
     <!-- Stats -->
     <section class="py-16 px-4 bg-white border-b border-gray-100">
       <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <div
-          v-for="(stat, i) in stats"
-          :key="stat.label"
-          class="scroll-reveal"
-          :class="`scroll-reveal-delay-${i + 1}`"
-        >
+        <div v-for="(stat, i) in stats" :key="stat.label" class="scroll-reveal" :class="`scroll-reveal-delay-${i + 1}`">
           <p class="text-4xl font-black text-[#f17b21]">{{ stat.value }}</p>
           <p class="text-gray-500 text-sm mt-1">{{ stat.label }}</p>
         </div>
@@ -36,64 +31,74 @@
           :key="cat"
           @click="activeCategory = cat"
           class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200"
-          :class="activeCategory === cat
-            ? 'bg-[#f17b21] text-white shadow-md'
-            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
+          :class="activeCategory === cat ? 'bg-[#f17b21] text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
         >{{ cat }}</button>
       </div>
     </section>
 
-    <!-- Projetos -->
+    <!-- Projetos em grid -->
     <section class="py-16 px-4 bg-gray-50">
-      <div class="max-w-6xl mx-auto space-y-8">
-        <div
-          v-for="(project, i) in filteredProjects"
-          :key="project.title"
-          class="scroll-reveal bg-white rounded-3xl overflow-hidden border border-gray-100 hover:shadow-xl hover:border-orange-200 transition-all duration-300 group"
-          :class="`scroll-reveal-delay-${Math.min(i + 1, 5)}`"
-        >
-          <div class="grid grid-cols-1 lg:grid-cols-3">
-
+      <div class="max-w-6xl mx-auto">
+        <TransitionGroup name="project-list" tag="div" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div
+            v-for="project in filteredProjects"
+            :key="project.title"
+            class="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl hover:border-orange-200 transition-all duration-300 group cursor-pointer flex flex-col"
+            @click="selected = project"
+          >
             <!-- Imagem -->
-            <div class="h-56 lg:h-auto overflow-hidden relative">
+            <div class="h-44 overflow-hidden relative flex-shrink-0">
               <img
                 :src="project.image"
                 :alt="project.title"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-gray-950 via-transparent to-transparent opacity-50" />
-            </div>
-
-            <!-- Conteúdo -->
-            <div class="lg:col-span-2 p-8">
-              <div class="flex flex-wrap items-start gap-3 mb-4">
-                <span class="bg-orange-100 text-[#f17b21] text-xs font-bold px-3 py-1 rounded-full">{{ project.category }}</span>
-                <span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+              <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent opacity-60" />
+              <div class="absolute top-3 left-3 flex gap-2">
+                <span class="bg-[#f17b21] text-white text-xs font-bold px-2.5 py-1 rounded-full">{{ project.category }}</span>
+              </div>
+              <div class="absolute bottom-3 right-3">
+                <span class="bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
                   <Icon name="lucide:check-circle" class="w-3 h-3" />
                   {{ project.status }}
                 </span>
               </div>
+            </div>
 
-              <h3 class="text-xl font-black text-gray-900 mb-2 group-hover:text-[#f17b21] transition-colors duration-200">{{ project.title }}</h3>
-              <p class="text-gray-500 text-sm leading-relaxed mb-5">{{ project.desc }}</p>
+            <!-- Conteúdo -->
+            <div class="p-5 flex flex-col flex-1">
+              <h3 class="text-sm font-black text-gray-900 mb-2 group-hover:text-[#f17b21] transition-colors duration-200 leading-snug line-clamp-2">
+                {{ project.title }}
+              </h3>
+              <p class="text-xs text-gray-400 leading-relaxed line-clamp-2 mb-4">{{ project.desc }}</p>
 
-              <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-5">
-                <div v-for="detail in project.details" :key="detail.label">
-                  <p class="text-xs text-gray-400">{{ detail.label }}</p>
-                  <p class="text-sm font-semibold text-gray-900 mt-0.5">{{ detail.value }}</p>
+              <!-- Details compactos -->
+              <div class="flex flex-wrap gap-x-4 gap-y-1 mb-4">
+                <div v-for="detail in project.details" :key="detail.label" class="flex items-center gap-1">
+                  <span class="text-xs text-gray-400">{{ detail.label }}:</span>
+                  <span class="text-xs font-semibold text-gray-700">{{ detail.value }}</span>
                 </div>
               </div>
 
-              <div class="flex flex-wrap gap-2">
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-1.5 mt-auto">
                 <span
-                  v-for="tag in project.tags"
+                  v-for="tag in project.tags.slice(0, 3)"
                   :key="tag"
-                  class="bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-1 rounded-full"
+                  class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full"
                 >{{ tag }}</span>
+                <span v-if="project.tags.length > 3" class="text-xs text-gray-400">+{{ project.tags.length - 3 }}</span>
+              </div>
+
+              <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                <span class="text-xs text-[#f17b21] font-semibold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  Ver detalhes
+                  <Icon name="lucide:arrow-right" class="w-3 h-3" />
+                </span>
               </div>
             </div>
           </div>
-        </div>
+        </TransitionGroup>
 
         <!-- Vazio -->
         <div v-if="filteredProjects.length === 0" class="text-center py-20">
@@ -102,6 +107,65 @@
         </div>
       </div>
     </section>
+
+    <!-- Modal de detalhes -->
+    <Transition name="modal">
+      <div v-if="selected" class="fixed inset-0 z-50 flex items-center justify-center px-4" @click.self="selected = null">
+        <div class="absolute inset-0 bg-gray-950/70 backdrop-blur-sm" @click="selected = null" />
+        <div class="relative bg-white rounded-3xl overflow-hidden max-w-2xl w-full shadow-2xl max-h-[90vh] overflow-y-auto">
+
+          <!-- Imagem -->
+          <div class="h-56 overflow-hidden relative">
+            <img :src="selected.image" :alt="selected.title" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent opacity-70" />
+            <button
+              @click="selected = null"
+              class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+            >
+              <Icon name="lucide:x" class="w-5 h-5" />
+            </button>
+            <div class="absolute bottom-4 left-6 flex gap-2">
+              <span class="bg-[#f17b21] text-white text-xs font-bold px-3 py-1 rounded-full">{{ selected.category }}</span>
+              <span class="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+                <Icon name="lucide:check-circle" class="w-3 h-3" />
+                {{ selected.status }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Conteúdo -->
+          <div class="p-8">
+            <h2 class="text-xl font-black text-gray-900 mb-3">{{ selected.title }}</h2>
+            <p class="text-gray-500 text-sm leading-relaxed mb-6">{{ selected.desc }}</p>
+
+            <div class="grid grid-cols-3 gap-4 mb-6">
+              <div v-for="detail in selected.details" :key="detail.label" class="bg-gray-50 rounded-xl p-4 text-center">
+                <p class="text-xs text-gray-400 mb-1">{{ detail.label }}</p>
+                <p class="text-sm font-black text-gray-900">{{ detail.value }}</p>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <span
+                v-for="tag in selected.tags"
+                :key="tag"
+                class="bg-orange-50 text-[#f17b21] text-xs font-semibold px-3 py-1 rounded-full"
+              >{{ tag }}</span>
+            </div>
+
+            <div class="mt-6 pt-6 border-t border-gray-100">
+              <NuxtLink
+                to="/agendar-reuniao"
+                class="w-full flex items-center justify-center gap-2 bg-[#f17b21] text-white font-bold py-3.5 rounded-xl hover:bg-[#d96a10] transition-colors duration-200"
+              >
+                <Icon name="lucide:calendar" class="w-4 h-4" />
+                Falar com Especialista
+              </NuxtLink>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Transition>
 
     <!-- CTA -->
     <section class="py-20 px-4 bg-gray-950">
@@ -125,6 +189,7 @@
 useSeoMeta({ title: 'Projetos de Engenharia — Field Industrial' })
 
 const activeCategory = ref('Todos')
+const selected = ref(null)
 
 const categories = ['Todos', 'Inspeção', 'Projetos Mecânicos', 'Paradas de Manutenção', 'Laudos Técnicos']
 
@@ -264,4 +329,26 @@ onMounted(() => {
 .scroll-reveal-delay-3 { transition-delay: 0.3s; }
 .scroll-reveal-delay-4 { transition-delay: 0.4s; }
 .scroll-reveal-delay-5 { transition-delay: 0.5s; }
+
+.project-list-enter-active,
+.project-list-leave-active {
+  transition: all 0.25s ease;
+}
+.project-list-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.project-list-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.2s ease;
+}
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
 </style>

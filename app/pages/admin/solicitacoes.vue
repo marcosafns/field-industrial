@@ -178,6 +178,14 @@
           <Icon name="lucide:user-check" class="w-3.5 h-3.5" />
           <span>{{ meeting.assigned_name }}</span>
         </div>
+        <div v-if="meeting.status === 'confirmed'" class="flex items-center gap-1.5 text-xs text-emerald-600 mt-1">
+          <Icon name="lucide:check-circle-2" class="w-3.5 h-3.5" />
+          <span>Cliente confirmou presença</span>
+        </div>
+        <div v-if="meeting.status === 'declined'" class="flex items-center gap-1.5 text-xs text-rose-500 mt-1">
+          <Icon name="lucide:x-circle" class="w-3.5 h-3.5" />
+          <span>Cliente recusou a reunião</span>
+        </div>
         <div v-else class="flex items-center gap-1.5 text-xs text-orange-400 mt-2">
           <Icon name="lucide:user-x" class="w-3.5 h-3.5" />
           <span>Sem responsável</span>
@@ -214,6 +222,8 @@ const filters = [
   { label: 'Todas', value: '' },
   { label: 'Pendentes', value: 'pending' },
   { label: 'Aprovadas', value: 'approved' },
+  { label: 'Confirmadas', value: 'confirmed' },
+  { label: 'Recusadas pelo cliente', value: 'declined' },
   { label: 'Recusadas', value: 'rejected' },
   { label: 'Concluídas', value: 'completed' },
 ]
@@ -296,7 +306,14 @@ async function fetchMeetings() {
 }
 
 function statusLabel(status) {
-  return { pending: 'Pendente', approved: 'Aprovada', rejected: 'Recusada', completed: 'Concluída' }[status] ?? status
+  return {
+    pending: 'Pendente',
+    approved: 'Aprovada',
+    rejected: 'Recusada',
+    completed: 'Concluída',
+    confirmed: 'Confirmada ✓',
+    declined: 'Recusada pelo cliente',
+  }[status] ?? status
 }
 
 function statusClass(status) {
@@ -305,6 +322,8 @@ function statusClass(status) {
     approved: 'bg-green-100 text-green-700',
     rejected: 'bg-red-100 text-red-600',
     completed: 'bg-blue-100 text-blue-700',
+    confirmed: 'bg-emerald-100 text-emerald-700',
+    declined: 'bg-rose-100 text-rose-600',
   }[status] ?? 'bg-gray-100 text-gray-600'
 }
 

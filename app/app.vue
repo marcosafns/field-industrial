@@ -17,15 +17,24 @@
       </div>
     </Transition>
 
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+    <!-- Conteúdo só aparece depois do loader sair -->
+    <Transition name="content-fade">
+      <div v-if="!isLoading">
+        <NuxtLayout>
+          <NuxtPage />
+        </NuxtLayout>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script setup>
-const isLoading = ref(false)
+const isLoading = ref(true)
 const router = useRouter()
+
+onMounted(() => {
+  setTimeout(() => { isLoading.value = false }, 800)
+})
 
 router.beforeEach(() => {
   isLoading.value = true
@@ -46,6 +55,13 @@ router.afterEach(() => {
   opacity: 0;
 }
 
+.content-fade-enter-active {
+  transition: opacity 0.3s ease;
+}
+.content-fade-enter-from {
+  opacity: 0;
+}
+
 @keyframes progress {
   0% { width: 0%; transform: translateX(0); }
   50% { width: 70%; }
@@ -53,6 +69,6 @@ router.afterEach(() => {
 }
 
 .animate-progress {
-  animation: progress 0.5s ease-in-out infinite;
+  animation: progress 0.8s ease-in-out infinite;
 }
 </style>

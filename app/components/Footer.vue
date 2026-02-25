@@ -85,7 +85,7 @@
         </p>
 
         <NuxtLink
-          to="#agendar-reuniao"
+          to="agendar-reuniao"
           class="flex items-center justify-center gap-2 bg-[#f17b21] text-white text-sm font-semibold px-5 py-3 rounded-full hover:bg-[#d96a10] transition-all duration-300 shadow-md hover:shadow-[#f17b21]/30 hover:shadow-lg hover:-translate-y-0.5 group w-full sm:w-fit"
         >
           <Icon name="lucide:calendar" class="w-4 h-4 transition-transform duration-300 group-hover:rotate-12" />
