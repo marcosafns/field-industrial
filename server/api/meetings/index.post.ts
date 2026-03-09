@@ -1,5 +1,5 @@
 import { defineEventHandler, readBody, createError } from 'h3'
-import pool from '../../utils/db'
+import supabase from '../../utils/db'
 
 function generateId() {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -25,19 +25,28 @@ export default defineEventHandler(async (event) => {
 
   const id = generateId()
 
-  await pool.query(
-    `INSERT INTO meeting_requests 
-      (id, name, email, phone, company, subject, message, preferred_date, preferred_time,
-       service_type, cnpj, responsible, role, city_state, urgency, equipment_type)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    [
-      id, name, email, phone || null, company || null,
-      subject, message, preferred_date || null, preferred_time || null,
-      service_type || 'meeting', cnpj || null, name,
-      role || null, city_state || null,
-      urgency || 'low', equipment_type || null,
-    ]
-  )
+  const { error } = await supabase
+    .from('meeting_requests')
+    .insert({
+      id,
+      name,
+      email,
+      phone: phone || null,
+      company: company || null,
+      subject,
+      message,
+      preferred_date: preferred_date || null,
+      preferred_time: preferred_time || null,
+      service_type: service_type || 'meeting',
+      cnpj: cnpj || null,
+      responsible: name,
+      role: role || null,
+      city_state: city_state || null,
+      urgency: urgency || 'low',
+      equipment_type: equipment_type || null,
+    })
+
+  if (error) throw createError({ statusCode: 500, message: error.message })
 
   return { ok: true, id }
 })

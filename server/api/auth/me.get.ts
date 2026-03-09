@@ -1,4 +1,4 @@
-
+import { defineEventHandler, getCookie, createError } from 'h3'
 import { verifyToken } from '../../utils/auth'
 
 export default defineEventHandler(async (event) => {

@@ -1,7 +1,7 @@
+import { defineEventHandler, readBody, createError, setCookie } from 'h3'
 import bcrypt from 'bcrypt'
-import pool from '../../utils/db'
+import supabase from '../../utils/db'
 import { signToken } from '../../utils/auth'
-import { sendEmail } from '../../utils/mailer'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
@@ -11,10 +11,13 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'Email e senha obrigatórios' })
   }
 
-  const [rows] = await pool.query('SELECT * FROM admins WHERE email = ?', [email]) as any
-  const admin = rows[0]
+  const { data: admin, error } = await supabase
+    .from('admins')
+    .select('*')
+    .eq('email', email)
+    .single()
 
-  if (!admin) {
+  if (error || !admin) {
     throw createError({ statusCode: 401, message: 'Credenciais inválidas' })
   }
 
@@ -27,7 +30,7 @@ export default defineEventHandler(async (event) => {
 
   setCookie(event, 'admin_token', token, {
     httpOnly: true,
-    maxAge: 60 * 60 * 24 * 30, // 30 dias
+    maxAge: 60 * 60 * 24 * 30,
     path: '/',
   })
 

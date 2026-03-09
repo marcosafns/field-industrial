@@ -3,18 +3,26 @@ import nodemailer from 'nodemailer'
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT),
-  secure: false,
+  secure: false, // false para 587 (STARTTLS)
+  requireTLS: true, // força TLS na 587
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
+  tls: {
+    rejectUnauthorized: false,
+  },
 })
 
 export async function sendEmail(to: string, subject: string, html: string) {
-  await transporter.sendMail({
-    from: process.env.SMTP_FROM,
-    to,
-    subject,
-    html,
-  })
+  try {
+    await transporter.sendMail({
+      from: process.env.SMTP_FROM,
+      to,
+      subject,
+      html,
+    })
+  } catch (err) {
+    console.error('[MAILER ERROR]', err)
+  }
 }

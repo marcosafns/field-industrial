@@ -1,5 +1,5 @@
 import { defineEventHandler, readBody, getRouterParam, createError } from 'h3'
-import pool from '../../../utils/db'
+import supabase from '../../../utils/db'
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')
@@ -15,22 +15,27 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'Nome e email obrigatórios' })
   }
 
-  await pool.query(
-    `UPDATE meeting_requests SET
-      preferred_date = ?, preferred_time = ?,
-      service_type = ?, cnpj = ?, role = ?,
-      city_state = ?, urgency = ?, equipment_type = ?,
-      subject = ?, message = ?,
-      status = 'pending', admin_response = NULL,
-      responded_at = NULL, viewed_at = NULL
-    WHERE id = ?`,
-    [
-      preferred_date || null, preferred_time || null,
-      service_type || 'meeting', cnpj || null, role || null,
-      city_state || null, urgency || 'low', equipment_type || null,
-      subject, message, id,
-    ]
-  )
+  const { error } = await supabase
+    .from('meeting_requests')
+    .update({
+      preferred_date: preferred_date || null,
+      preferred_time: preferred_time || null,
+      service_type: service_type || 'meeting',
+      cnpj: cnpj || null,
+      role: role || null,
+      city_state: city_state || null,
+      urgency: urgency || 'low',
+      equipment_type: equipment_type || null,
+      subject,
+      message,
+      status: 'pending',
+      admin_response: null,
+      responded_at: null,
+      viewed_at: null,
+    })
+    .eq('id', id)
+
+  if (error) throw createError({ statusCode: 500, message: error.message })
 
   return { ok: true }
 })

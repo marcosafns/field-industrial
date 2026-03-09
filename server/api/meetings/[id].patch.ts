@@ -1,6 +1,6 @@
 import { defineEventHandler, getCookie, getRouterParam, readBody, createError } from 'h3'
 import { verifyToken } from '../../utils/auth'
-import pool from '../../utils/db'
+import supabase from '../../utils/db'
 import { sendEmail } from '../../utils/mailer'
 
 export default defineEventHandler(async (event) => {
@@ -13,23 +13,41 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   const { status, admin_response, proposal_value, meeting_link } = body
 
-  await pool.query(
-    `UPDATE meeting_requests 
-     SET status = ?, admin_response = ?, responded_at = NOW(),
-         proposal_value = ?, meeting_link = ?
-     WHERE id = ?`,
-    [status, admin_response || null, proposal_value || null, meeting_link || null, id]
-  )
+  // Busca meeting atual para verificar proposal_sent_at
+  const { data: existing } = await supabase
+    .from('meeting_requests')
+    .select('*')
+    .eq('id', id)
+    .single()
 
-  if (status === 'approved' && proposal_value) {
-    await pool.query(
-      'UPDATE meeting_requests SET proposal_sent_at = NOW() WHERE id = ? AND proposal_sent_at IS NULL',
-      [id]
-    )
+  if (!existing) throw createError({ statusCode: 404, message: 'Não encontrado' })
+
+  const updateData: Record<string, any> = {
+    status,
+    admin_response: admin_response || null,
+    responded_at: new Date().toISOString(),
+    proposal_value: proposal_value || null,
+    meeting_link: meeting_link || null,
   }
 
-  const [rows] = await pool.query('SELECT * FROM meeting_requests WHERE id = ?', [id]) as any
-  const meeting = rows[0]
+  // Só seta proposal_sent_at uma vez
+  if (status === 'approved' && proposal_value && !existing.proposal_sent_at) {
+    updateData.proposal_sent_at = new Date().toISOString()
+  }
+
+  const { error } = await supabase
+    .from('meeting_requests')
+    .update(updateData)
+    .eq('id', id)
+
+  if (error) throw createError({ statusCode: 500, message: error.message })
+
+  // Busca meeting atualizado para o email
+  const { data: meeting } = await supabase
+    .from('meeting_requests')
+    .select('*')
+    .eq('id', id)
+    .single()
 
   if (meeting?.email && (admin_response || status === 'approved')) {
     const statusColors: Record<string, string> = {
@@ -43,7 +61,7 @@ export default defineEventHandler(async (event) => {
       remote_diagnosis: 'Diagnóstico Remoto', document_analysis: 'Análise de Documentos', budget: 'Orçamento',
     }
 
-    const siteUrl = 'http://localhost:3000'
+    const siteUrl = process.env.SITE_URL || 'http://localhost:3000'
 
     const confirmButtons = status === 'approved' ? `
       <table cellpadding="0" cellspacing="0" style="margin:0 auto 32px;">

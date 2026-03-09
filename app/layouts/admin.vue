@@ -110,7 +110,7 @@
 const adminName = ref('')
 const newCount = ref(0)
 const knownIds = ref(null)
-let pollingInterval = null
+let eventSource = null
 
 const notification = ref({
   show: false,
@@ -124,8 +124,6 @@ const notification = ref({
 function playNotificationSound() {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)()
-
-    // Primeiro beep
     const osc1 = ctx.createOscillator()
     const gain1 = ctx.createGain()
     osc1.connect(gain1)
@@ -137,7 +135,6 @@ function playNotificationSound() {
     osc1.start(ctx.currentTime)
     osc1.stop(ctx.currentTime + 0.3)
 
-    // Segundo beep
     const osc2 = ctx.createOscillator()
     const gain2 = ctx.createGain()
     osc2.connect(gain2)
@@ -151,33 +148,52 @@ function playNotificationSound() {
   } catch {}
 }
 
-async function checkNewMeetings() {
-  try {
-    const data = await $fetch('/api/meetings')
-    const unviewed = data.filter(m => !m.viewed_at)
-    newCount.value = unviewed.length
+function handleStreamData(data) {
+  if (data.connected) return
 
-    if (knownIds.value === null) {
-      knownIds.value = new Set(data.map(m => m.id))
-      return
-    }
+  newCount.value = data.unviewed
 
-    const newOnes = data.filter(m => !knownIds.value.has(m.id))
-    if (newOnes.length > 0) {
-      const newest = newOnes[0]
-      notification.value = {
-        show: true,
-        id: newest.id,
-        name: newest.name,
-        company: newest.company || '',
-        email: newest.email || '',
-        subject: newest.subject || '',
-      }
-      newOnes.forEach(m => knownIds.value.add(m.id))
-      playNotificationSound()
-      setTimeout(() => { notification.value.show = false }, 6000)
+  if (knownIds.value === null) {
+    knownIds.value = new Set(data.meetings.map(m => m.id))
+    return
+  }
+
+  const newOnes = data.meetings.filter(m => !knownIds.value.has(m.id))
+  if (newOnes.length > 0) {
+    const newest = newOnes[0]
+    notification.value = {
+      show: true,
+      id: newest.id,
+      name: newest.name,
+      company: newest.company || '',
+      email: newest.email || '',
+      subject: newest.subject || '',
     }
-  } catch {}
+    newOnes.forEach(m => knownIds.value.add(m.id))
+    playNotificationSound()
+    setTimeout(() => { notification.value.show = false }, 6000)
+  }
+}
+
+function connectSSE() {
+  if (eventSource) {
+    eventSource.close()
+  }
+
+  eventSource = new EventSource('/api/meetings/stream')
+
+  eventSource.onmessage = (event) => {
+    try {
+      const data = JSON.parse(event.data)
+      handleStreamData(data)
+    } catch {}
+  }
+
+  eventSource.onerror = () => {
+    // Reconecta após 5s se cair
+    eventSource.close()
+    setTimeout(connectSSE, 5000)
+  }
 }
 
 async function logout() {
@@ -191,12 +207,13 @@ onMounted(async () => {
     adminName.value = data.name || data.email || ''
   } catch {}
 
-  await checkNewMeetings()
-  pollingInterval = setInterval(checkNewMeetings, 10000)
+  connectSSE()
 })
 
 onUnmounted(() => {
-  if (pollingInterval) clearInterval(pollingInterval)
+  if (eventSource) {
+    eventSource.close()
+  }
 })
 </script>
 

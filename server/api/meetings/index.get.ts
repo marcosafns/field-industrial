@@ -1,5 +1,6 @@
+import { defineEventHandler, getCookie, getQuery, createError } from 'h3'
 import { verifyToken } from '../../utils/auth'
-import pool from '../../utils/db'
+import supabase from '../../utils/db'
 
 export default defineEventHandler(async (event) => {
   const token = getCookie(event, 'admin_token')
@@ -10,26 +11,20 @@ export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const { status, date } = query
 
-  let sql = 'SELECT * FROM meeting_requests WHERE 1=1'
-  const params: any[] = []
+  let q = supabase
+    .from('meeting_requests')
+    .select(`*, assigned_name:admins!meeting_requests_assigned_to_fkey(name)`)
+    .order('created_at', { ascending: false })
 
-  if (status) {
-    sql += ' AND status = ?'
-    params.push(status)
-  }
+  if (status) q = q.eq('status', status as string)
+  if (date) q = q.eq('preferred_date', date as string)
 
-  if (date) {
-    sql += ' AND DATE(created_at) = ?'
-    params.push(date)
-  }
+  const { data, error } = await q
 
-  sql += ' ORDER BY created_at DESC'
+  if (error) throw createError({ statusCode: 500, message: error.message })
 
-  const [rows] = await pool.query(`
-    SELECT m.*, a.name as assigned_name 
-    FROM meeting_requests m
-    LEFT JOIN admins a ON m.assigned_to = a.id
-    ORDER BY m.created_at DESC
-  `) as any
-  return rows
+  return (data || []).map((m: any) => ({
+    ...m,
+    assigned_name: m.assigned_name?.name ?? null,
+  }))
 })

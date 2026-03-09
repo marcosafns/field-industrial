@@ -161,8 +161,8 @@ const today = computed(() => new Date().toLocaleDateString('pt-BR', { weekday: '
 
 const greeting = computed(() => {
   const h = new Date().getHours()
-  if (h < 12 && h > 6) return 'Bom dia'
-  if (h < 18 && h > 12) return 'Boa tarde'
+  if (h >= 6 && h < 12) return 'Bom dia'
+  if (h >= 12 && h < 18) return 'Boa tarde'
   return 'Boa noite'
 })
 

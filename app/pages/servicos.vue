@@ -20,9 +20,8 @@
       :class="i % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
       class="py-24 px-4"
     >
-      <div
-        class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
-      >
+      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
         <!-- Ícone -->
         <div
           class="scroll-reveal"
@@ -157,6 +156,19 @@ const services = [
       'Suporte técnico metalúrgico',
       'Reparo e recuperação de equipamentos',
       'Controle de qualidade na fabricação',
+    ],
+  },
+  {
+    icon: 'lucide:scan',
+    title: 'Engenharia Reversa de Equipamentos',
+    desc: 'Coleta de medidas e dados de equipamentos existentes para desenvolvimento de projetos técnicos completos, permitindo fabricação de réplicas, peças de reposição ou modernização sem documentação original.',
+    items: [
+      'Levantamento dimensional in loco de equipamentos',
+      'Desenvolvimento de desenhos técnicos a partir das medidas coletadas',
+      'Especificação de materiais e processos de fabricação',
+      'Projeto para fabricação de peças e componentes sem documentação original',
+      'Modernização e adequação normativa de equipamentos legados',
+      'Memorial de cálculo retroativo conforme ASME e ABNT',
     ],
   },
 ]

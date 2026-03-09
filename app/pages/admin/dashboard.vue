@@ -125,7 +125,7 @@
             <h2 class="font-bold text-gray-900">Últimas Solicitações</h2>
             <p class="text-xs text-gray-400 mt-0.5">Mais recentes recebidas</p>
           </div>
-          <NuxtLink to="/admin" class="text-xs text-[#f17b21] font-semibold hover:underline flex items-center gap-1">
+          <NuxtLink to="/admin/solicitacoes" class="text-xs text-[#f17b21] font-semibold hover:underline flex items-center gap-1">
             Ver todas
             <Icon name="lucide:arrow-right" class="w-3 h-3" />
           </NuxtLink>
