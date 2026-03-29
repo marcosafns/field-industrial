@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
     .update({
       preferred_date: preferred_date || null,
       preferred_time: preferred_time || null,
-      service_type: service_type || 'meeting',
+      service_type: service_type || 'consulting',
       cnpj: cnpj || null,
       role: role || null,
       city_state: city_state || null,

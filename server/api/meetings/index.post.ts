@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
       message,
       preferred_date: preferred_date || null,
       preferred_time: preferred_time || null,
-      service_type: service_type || 'meeting',
+      service_type: service_type || 'consulting',
       cnpj: cnpj || null,
       responsible: name,
       role: role || null,

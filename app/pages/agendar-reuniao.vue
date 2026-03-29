@@ -152,7 +152,7 @@
                 </div>
                 <div>
                   <label class="text-xs text-gray-500 mb-1 block">Telefone / WhatsApp <span class="text-[#f17b21]">*</span></label>
-                  <input v-model="form.phone" type="tel" placeholder="(00) 00000-0000" required
+                  <input :value="form.phone" @input="formatPhone" type="tel" placeholder="(00) 00000-0000" required maxlength="15"
                     class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#f17b21] focus:bg-white transition-all duration-200" />
                 </div>
               </div>
@@ -171,7 +171,7 @@
                 </div>
                 <div>
                   <label class="text-xs text-gray-500 mb-1 block">CNPJ</label>
-                  <input v-model="form.cnpj" type="text" placeholder="00.000.000/0000-00"
+                  <input :value="form.cnpj" @input="formatCnpj" type="text" placeholder="00.000.000/0000-00" maxlength="18"
                     class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-[#f17b21] focus:bg-white transition-all duration-200" />
                 </div>
               </div>
@@ -327,7 +327,7 @@ const sideItems = [
 ]
 
 const services = [
-  { value: 'meeting', label: 'Reunião Inicial', icon: 'lucide:video', badge: 'Grátis', description: 'Primeira conversa e entendimento da necessidade', duration: 'Até 30 minutos' },
+
   { value: 'consulting', label: 'Consultoria Técnica', icon: 'lucide:wrench', badge: null, description: 'Análise técnica detalhada e orientação especializada', duration: 'Mínimo 1 hora' },
   { value: 'remote_diagnosis', label: 'Diagnóstico Remoto', icon: 'lucide:monitor', badge: null, description: 'Auxílio técnico remoto via videochamada ao vivo', duration: 'Por hora' },
   { value: 'document_analysis', label: 'Análise de Documentos', icon: 'lucide:file-text', badge: null, description: 'Revisão e parecer técnico sobre documentos', duration: 'Sob consulta' },
@@ -341,11 +341,11 @@ const urgencies = [
 ]
 
 const selectedService = computed(() => services.find(s => s.value === form.value.service_type))
-const showEquipmentField = computed(() => ['meeting', 'consulting', 'remote_diagnosis'].includes(form.value.service_type))
+const showEquipmentField = computed(() => ['consulting', 'remote_diagnosis'].includes(form.value.service_type))
 const showFileUpload = computed(() => ['consulting', 'remote_diagnosis', 'document_analysis'].includes(form.value.service_type))
 
 const subjectPlaceholder = computed(() => ({
-  meeting: 'Ex: Inspeção de vasos de pressão',
+
   consulting: 'Ex: Análise de falha em bomba centrífuga',
   remote_diagnosis: 'Ex: Vibração excessiva em compressor',
   document_analysis: 'Ex: Revisão de memorial de cálculo',
@@ -353,7 +353,7 @@ const subjectPlaceholder = computed(() => ({
 }[form.value.service_type] || 'Descreva brevemente o assunto'))
 
 const messagePlaceholder = computed(() => ({
-  meeting: 'Descreva brevemente o problema ou necessidade...',
+
   consulting: 'Descreva a falha, histórico de manutenção e condições de operação...',
   remote_diagnosis: 'Descreva os sintomas observados, frequência e condições do equipamento...',
   document_analysis: 'Informe o objetivo da análise e o prazo desejado...',
@@ -365,6 +365,25 @@ const minDate = computed(() => {
   d.setDate(d.getDate() + 1)
   return d.toISOString().split('T')[0]
 })
+
+function formatPhone(e) {
+  let v = e.target.value.replace(/\D/g, '').slice(0, 11)
+  if (v.length > 6) v = `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`
+  else if (v.length > 2) v = `(${v.slice(0, 2)}) ${v.slice(2)}`
+  else if (v.length > 0) v = `(${v}`
+  form.value.phone = v
+  e.target.value = v
+}
+
+function formatCnpj(e) {
+  let v = e.target.value.replace(/\D/g, '').slice(0, 14)
+  if (v.length > 12) v = `${v.slice(0, 2)}.${v.slice(2, 5)}.${v.slice(5, 8)}/${v.slice(8, 12)}-${v.slice(12)}`
+  else if (v.length > 8) v = `${v.slice(0, 2)}.${v.slice(2, 5)}.${v.slice(5, 8)}/${v.slice(8)}`
+  else if (v.length > 5) v = `${v.slice(0, 2)}.${v.slice(2, 5)}.${v.slice(5)}`
+  else if (v.length > 2) v = `${v.slice(0, 2)}.${v.slice(2)}`
+  form.value.cnpj = v
+  e.target.value = v
+}
 
 function handleFiles(e) { files.value = [...files.value, ...Array.from(e.target.files)] }
 function handleDrop(e) { files.value = [...files.value, ...Array.from(e.dataTransfer.files)] }

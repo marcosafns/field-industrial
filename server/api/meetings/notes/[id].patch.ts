@@ -1,5 +1,6 @@
-import pool from '../../../utils/db'
+import { defineEventHandler, getCookie, getRouterParam, readBody, createError } from 'h3'
 import { verifyToken } from '../../../utils/auth'
+import supabase from '../../../utils/db'
 
 export default defineEventHandler(async (event) => {
   const token = getCookie(event, 'admin_token')
@@ -8,9 +9,12 @@ export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')
   const { internal_notes } = await readBody(event)
 
-  await pool.query(
-    'UPDATE meeting_requests SET internal_notes = ? WHERE id = ?',
-    [internal_notes, id]
-  )
+  const { error } = await supabase
+    .from('meeting_requests')
+    .update({ internal_notes })
+    .eq('id', id)
+
+  if (error) throw createError({ statusCode: 500, message: error.message })
+
   return { ok: true }
 })
