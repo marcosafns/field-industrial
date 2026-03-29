@@ -1,5 +1,5 @@
 import { defineEventHandler, readBody, createError, setCookie } from 'h3'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import supabase from '../../utils/db'
 import { signToken } from '../../utils/auth'
 
