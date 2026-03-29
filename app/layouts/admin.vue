@@ -154,11 +154,11 @@ function handleStreamData(data) {
   newCount.value = data.unviewed
 
   if (knownIds.value === null) {
-    knownIds.value = new Set(data.meetings.map(m => m.id))
+    knownIds.value = new Set((data.meetings || []).map(m => m.id))
     return
   }
 
-  const newOnes = data.meetings.filter(m => !knownIds.value.has(m.id))
+  const newOnes = (data.meetings || []).filter(m => !knownIds.value.has(m.id))
   if (newOnes.length > 0) {
     const newest = newOnes[0]
     notification.value = {
