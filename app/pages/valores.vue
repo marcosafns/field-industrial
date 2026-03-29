@@ -1,31 +1,31 @@
 <template>
-  <div class="pt-20">
+  <div class="pt-16 sm:pt-20">
 
     <!-- Hero -->
-    <section class="relative bg-gray-950 py-28 px-4 overflow-hidden">
+    <section class="relative bg-gray-950 py-16 sm:py-24 md:py-28 px-4 overflow-hidden">
       <div class="absolute top-0 right-1/3 w-96 h-96 bg-[#f17b21] rounded-full blur-3xl opacity-10 pointer-events-none" />
       <div class="max-w-5xl mx-auto relative z-10 text-center">
         <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">Princípios</span>
-        <h1 class="scroll-reveal scroll-reveal-delay-1 text-4xl md:text-6xl font-black text-white mt-3 mb-6 leading-tight">Nossos Valores</h1>
-        <p class="scroll-reveal scroll-reveal-delay-2 text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+        <h1 class="scroll-reveal scroll-reveal-delay-1 text-3xl sm:text-4xl md:text-6xl font-black text-white mt-3 mb-4 sm:mb-6 leading-tight">Nossos Valores</h1>
+        <p class="scroll-reveal scroll-reveal-delay-2 text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
           Os princípios que guiam cada decisão, projeto e relacionamento da Field Industrial.
         </p>
       </div>
     </section>
 
     <!-- Valores principais -->
-    <section class="py-24 px-4 bg-white">
+    <section class="py-12 sm:py-24 px-4 bg-white">
       <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
+        <div class="text-center mb-8 sm:mb-16">
           <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">O que nos guia</span>
-          <h2 class="scroll-reveal scroll-reveal-delay-1 text-3xl md:text-4xl font-black text-gray-900 mt-3">Valores que movem a empresa</h2>
+          <h2 class="scroll-reveal scroll-reveal-delay-1 text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 mt-3">Valores que movem a empresa</h2>
           <div class="scroll-reveal scroll-reveal-delay-2 w-12 h-1 bg-[#f17b21] mx-auto mt-4 rounded-full" />
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div
             v-for="(value, i) in coreValues"
             :key="value.title"
-            class="scroll-reveal relative p-8 rounded-3xl border border-gray-100 hover:shadow-xl hover:border-orange-200 transition-all duration-300 group overflow-hidden"
+            class="scroll-reveal relative p-5 sm:p-8 rounded-3xl border border-gray-100 hover:shadow-xl hover:border-orange-200 transition-all duration-300 group overflow-hidden"
             :class="`scroll-reveal-delay-${Math.min(i + 1, 5)}`"
           >
             <div class="absolute top-0 right-0 w-32 h-32 bg-orange-50 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-orange-100 transition-colors duration-300" />
@@ -44,17 +44,17 @@
     </section>
 
     <!-- Missão, Visão e Valores -->
-    <section class="py-24 px-4 bg-gray-50">
+    <section class="py-12 sm:py-24 px-4 bg-gray-50">
     <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
+        <div class="text-center mb-8 sm:mb-16">
         <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">Propósito</span>
-        <h2 class="scroll-reveal scroll-reveal-delay-1 text-3xl md:text-4xl font-black text-gray-900 mt-3">Missão, Visão e Valores</h2>
+        <h2 class="scroll-reveal scroll-reveal-delay-1 text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 mt-3">Missão, Visão e Valores</h2>
         <div class="scroll-reveal scroll-reveal-delay-2 w-12 h-1 bg-[#f17b21] mx-auto mt-4 rounded-full" />
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
         <!-- Missão -->
-        <div class="scroll-reveal scroll-reveal-delay-1 bg-gray-950 rounded-3xl p-10">
+        <div class="scroll-reveal scroll-reveal-delay-1 bg-gray-950 rounded-3xl p-6 sm:p-10">
             <div class="w-12 h-12 bg-[#f17b21] rounded-xl flex items-center justify-center mb-6">
             <Icon name="lucide:target" class="w-6 h-6 text-white" />
             </div>
@@ -65,7 +65,7 @@
         </div>
 
         <!-- Visão -->
-        <div class="scroll-reveal scroll-reveal-delay-2 bg-[#f17b21] rounded-3xl p-10">
+        <div class="scroll-reveal scroll-reveal-delay-2 bg-[#f17b21] rounded-3xl p-6 sm:p-10">
             <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 opacity-90">
             <Icon name="lucide:eye" class="w-6 h-6 text-[#f17b21]" />
             </div>
@@ -76,7 +76,7 @@
         </div>
 
         <!-- Valores -->
-        <div class="scroll-reveal scroll-reveal-delay-3 bg-white rounded-3xl p-10 border border-gray-100 shadow-sm">
+        <div class="scroll-reveal scroll-reveal-delay-3 bg-white rounded-3xl p-6 sm:p-10 border border-gray-100 shadow-sm">
             <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-6">
             <Icon name="lucide:star" class="w-6 h-6 text-[#f17b21]" />
             </div>
@@ -96,9 +96,9 @@
     </section>
 
     <!-- CTA -->
-    <section class="py-20 px-4 bg-white border-t border-gray-100">
+    <section class="py-12 sm:py-20 px-4 bg-white border-t border-gray-100">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="scroll-reveal text-3xl font-black text-gray-900 mb-4">Esses valores guiam cada projeto</h2>
+        <h2 class="scroll-reveal text-2xl sm:text-3xl font-black text-gray-900 mb-4">Esses valores guiam cada projeto</h2>
         <p class="scroll-reveal scroll-reveal-delay-1 text-gray-500 mb-8">Conheça como aplicamos nossos princípios na prática.</p>
         <NuxtLink
           to="/servicos"

@@ -1,13 +1,13 @@
 <template>
-  <div class="pt-20">
+  <div class="pt-16 sm:pt-20">
 
     <!-- Hero -->
-    <section class="relative bg-gray-950 py-28 px-4 overflow-hidden">
+    <section class="relative bg-gray-950 py-16 sm:py-24 md:py-28 px-4 overflow-hidden">
       <div class="absolute bottom-0 left-1/3 w-96 h-96 bg-[#f17b21] rounded-full blur-3xl opacity-10 pointer-events-none" />
       <div class="max-w-5xl mx-auto relative z-10 text-center">
         <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">O que fazemos</span>
-        <h1 class="scroll-reveal scroll-reveal-delay-1 text-4xl md:text-6xl font-black text-white mt-3 mb-6 leading-tight">Serviços</h1>
-        <p class="scroll-reveal scroll-reveal-delay-2 text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+        <h1 class="scroll-reveal scroll-reveal-delay-1 text-3xl sm:text-4xl md:text-6xl font-black text-white mt-3 mb-4 sm:mb-6 leading-tight">Serviços</h1>
+        <p class="scroll-reveal scroll-reveal-delay-2 text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
           Soluções completas de engenharia industrial com alto padrão técnico e conformidade normativa.
         </p>
       </div>
@@ -18,18 +18,19 @@
       v-for="(service, i) in services"
       :key="service.title"
       :class="i % 2 === 0 ? 'bg-white' : 'bg-gray-50'"
-      class="py-24 px-4"
+      class="py-12 sm:py-24 px-4"
     >
-      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
+      <div
+        class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center"
+      >
         <!-- Ícone -->
         <div
           class="scroll-reveal"
           :class="i % 2 !== 0 ? 'lg:order-2 scroll-reveal-delay-2' : 'scroll-reveal-delay-1'"
         >
-          <div class="bg-gray-950 rounded-3xl p-12 flex items-center justify-center aspect-square max-w-sm mx-auto relative overflow-hidden">
+          <div class="bg-gray-950 rounded-3xl p-8 sm:p-12 flex items-center justify-center aspect-square max-w-xs sm:max-w-sm mx-auto relative overflow-hidden">
             <div class="absolute top-0 right-0 w-48 h-48 bg-[#f17b21] rounded-full blur-3xl opacity-20" />
-            <Icon :name="service.icon" class="w-28 h-28 text-[#f17b21] relative z-10" />
+            <Icon :name="service.icon" class="w-20 h-20 sm:w-28 sm:h-28 text-[#f17b21] relative z-10" />
             <div class="absolute bottom-6 left-6 right-6">
               <div class="h-px bg-gradient-to-r from-[#f17b21] to-transparent rounded-full" />
             </div>
@@ -41,7 +42,7 @@
           <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">
             {{ String(i + 1).padStart(2, '0') }}
           </span>
-          <h2 class="scroll-reveal scroll-reveal-delay-1 text-3xl md:text-4xl font-black text-gray-900 mt-3 mb-5 leading-tight">
+          <h2 class="scroll-reveal scroll-reveal-delay-1 text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 mt-3 mb-4 sm:mb-5 leading-tight">
             {{ service.title }}
           </h2>
           <p class="scroll-reveal scroll-reveal-delay-2 text-gray-600 leading-relaxed mb-6">
@@ -65,9 +66,9 @@
     </section>
 
     <!-- CTA -->
-    <section class="py-20 px-4 bg-gray-950">
+    <section class="py-12 sm:py-20 px-4 bg-gray-950">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="scroll-reveal text-3xl font-black text-white mb-4">Precisa de algum desses serviços?</h2>
+        <h2 class="scroll-reveal text-2xl sm:text-3xl font-black text-white mb-4">Precisa de algum desses serviços?</h2>
         <p class="scroll-reveal scroll-reveal-delay-1 text-gray-400 mb-8">Entre em contato e solicite uma proposta personalizada.</p>
         <NuxtLink
           to="/agendar-reuniao"

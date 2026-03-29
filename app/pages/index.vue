@@ -1,5 +1,5 @@
 <template>
-  <section class="relative w-full h-screen overflow-hidden">
+  <section class="relative w-full min-h-[100svh] overflow-hidden">
 
     <!-- Imagem de fundo -->
     <div
@@ -16,20 +16,20 @@
 
     <!-- Conteúdo -->
     <div class="relative z-10 h-full flex items-center">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full pt-20 sm:pt-24 pb-24 sm:pb-20">
 
         <!-- Tag superior -->
         <div
-          class="inline-flex items-center gap-2 bg-[#f17b21]/20 border border-[#f17b21]/40 rounded-full px-4 py-1.5 mb-4 sm:mb-6 transition-all duration-700 delay-100"
+          class="inline-flex items-center gap-2 bg-[#f17b21]/20 border border-[#f17b21]/40 rounded-full px-3 sm:px-4 py-1.5 mb-4 sm:mb-6 transition-all duration-700 delay-100"
           :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
         >
           <span class="w-2 h-2 rounded-full bg-[#f17b21] animate-pulse" />
-          <span class="text-[#f17b21] text-xs font-semibold tracking-widest uppercase">Engenharia Industrial</span>
+          <span class="text-[#f17b21] text-xs font-semibold tracking-wider sm:tracking-widest uppercase">Engenharia Industrial</span>
         </div>
 
         <!-- Título -->
         <h1
-          class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight max-w-4xl mb-4 sm:mb-6 transition-all duration-700 delay-200"
+          class="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold text-white leading-tight max-w-4xl mb-3 sm:mb-6 transition-all duration-700 delay-200"
           :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
         >
           Engenharia Mecânica,
@@ -40,7 +40,7 @@
 
         <!-- Subtítulo -->
         <p
-          class="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mb-8 sm:mb-10 leading-relaxed transition-all duration-700 delay-300"
+          class="text-gray-300 text-xs sm:text-sm md:text-lg max-w-2xl mb-5 sm:mb-10 leading-relaxed transition-all duration-700 delay-300"
           :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
         >
           Atuação técnica em estudo, desenvolvimento, validação e execução de soluções industriais
@@ -57,16 +57,17 @@
           <NuxtLink to="agendar-reuniao" class="text-center bg-transparent text-[#f17b21] font-semibold px-7 py-3 rounded-full border border-[#f17b21] hover:bg-[#f17b21] hover:text-white transition-all duration-300 hover:-translate-y-0.5">Agendar Reunião</NuxtLink>
         </div>
 
-        <!-- Indicador de scroll -->
-        <div
-          class="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-all duration-700 delay-700"
-          :class="loaded ? 'opacity-100' : 'opacity-0'"
-        >
-          <span class="text-gray-400 text-xs tracking-widest uppercase">Role para baixo</span>
-          <div class="w-px h-8 sm:h-10 bg-gradient-to-b from-gray-400 to-transparent animate-pulse" />
-        </div>
-
       </div>
+
+      <!-- Indicador de scroll -->
+      <div
+        class="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-all duration-700 delay-700"
+        :class="loaded ? 'opacity-100' : 'opacity-0'"
+      >
+        <span class="text-gray-400 text-xs tracking-wider uppercase">Role para baixo</span>
+        <div class="w-px h-8 sm:h-10 bg-gradient-to-b from-gray-400 to-transparent animate-pulse" />
+      </div>
+
     </div>
 
   </section>
@@ -135,7 +136,7 @@
   </section>
 
   <!-- ===== QUEM SOMOS ===== -->
-  <section id="quem-somos" class="bg-white py-16 sm:py-24 px-4 sm:px-6">
+  <section id="quem-somos" class="bg-white py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 items-center">
 
       <div class="relative reveal reveal-left">

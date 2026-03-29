@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="overflow-x-hidden">
     <!-- Seu Header -->
     <Header />
 
     <!-- Conteúdo da página -->
-    <main> <!-- Padding superior para compensar o header fixo -->
+    <main>
       <slot />
     </main>
 

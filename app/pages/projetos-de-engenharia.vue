@@ -1,36 +1,36 @@
 <template>
-  <div class="pt-20">
+  <div class="pt-16 sm:pt-20">
 
     <!-- Hero -->
-    <section class="relative bg-gray-950 py-28 px-4 overflow-hidden">
+    <section class="relative bg-gray-950 py-16 sm:py-24 md:py-28 px-4 overflow-hidden">
       <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-[#f17b21] rounded-full blur-3xl opacity-10 pointer-events-none" />
       <div class="max-w-5xl mx-auto relative z-10 text-center">
         <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">Cases</span>
-        <h1 class="scroll-reveal scroll-reveal-delay-1 text-4xl md:text-6xl font-black text-white mt-3 mb-6 leading-tight">Projetos de Engenharia</h1>
-        <p class="scroll-reveal scroll-reveal-delay-2 text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+        <h1 class="scroll-reveal scroll-reveal-delay-1 text-3xl sm:text-4xl md:text-6xl font-black text-white mt-3 mb-4 sm:mb-6 leading-tight">Projetos de Engenharia</h1>
+        <p class="scroll-reveal scroll-reveal-delay-2 text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
           Conheça os projetos desenvolvidos e executados pela nossa equipe técnica.
         </p>
       </div>
     </section>
 
     <!-- Stats -->
-    <section class="py-16 px-4 bg-white border-b border-gray-100">
-      <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+    <section class="py-10 sm:py-16 px-4 bg-white border-b border-gray-100">
+      <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-center">
         <div v-for="(stat, i) in stats" :key="stat.label" class="scroll-reveal" :class="`scroll-reveal-delay-${i + 1}`">
-          <p class="text-4xl font-black text-[#f17b21]">{{ stat.value }}</p>
-          <p class="text-gray-500 text-sm mt-1">{{ stat.label }}</p>
+          <p class="text-2xl sm:text-4xl font-black text-[#f17b21]">{{ stat.value }}</p>
+          <p class="text-gray-500 text-xs sm:text-sm mt-1">{{ stat.label }}</p>
         </div>
       </div>
     </section>
 
     <!-- Filtros -->
-    <section class="py-6 px-4 bg-white sticky top-20 z-10 border-b border-gray-100 shadow-sm">
-      <div class="max-w-6xl mx-auto flex flex-wrap gap-3 justify-center">
+    <section class="py-4 sm:py-6 px-4 bg-white sticky top-16 sm:top-20 z-10 border-b border-gray-100 shadow-sm">
+      <div class="max-w-6xl mx-auto flex gap-2 sm:gap-3 overflow-x-auto pb-1 justify-start sm:justify-center" style="-webkit-overflow-scrolling: touch; scrollbar-width: none;">
         <button
           v-for="cat in categories"
           :key="cat"
           @click="activeCategory = cat"
-          class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200"
+          class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap flex-shrink-0 transition-all duration-200"
           :class="activeCategory === cat ? 'bg-[#f17b21] text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
         >{{ cat }}</button>
       </div>
@@ -134,11 +134,11 @@
           </div>
 
           <!-- Conteúdo -->
-          <div class="p-8">
-            <h2 class="text-xl font-black text-gray-900 mb-3">{{ selected.title }}</h2>
+          <div class="p-5 sm:p-8">
+            <h2 class="text-lg sm:text-xl font-black text-gray-900 mb-3">{{ selected.title }}</h2>
             <p class="text-gray-500 text-sm leading-relaxed mb-6">{{ selected.desc }}</p>
 
-            <div class="grid grid-cols-3 gap-4 mb-6">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
               <div v-for="detail in selected.details" :key="detail.label" class="bg-gray-50 rounded-xl p-4 text-center">
                 <p class="text-xs text-gray-400 mb-1">{{ detail.label }}</p>
                 <p class="text-sm font-black text-gray-900">{{ detail.value }}</p>
@@ -168,9 +168,9 @@
     </Transition>
 
     <!-- CTA -->
-    <section class="py-20 px-4 bg-gray-950">
+    <section class="py-12 sm:py-20 px-4 bg-gray-950">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="scroll-reveal text-3xl font-black text-white mb-4">Quer desenvolver um projeto?</h2>
+        <h2 class="scroll-reveal text-2xl sm:text-3xl font-black text-white mb-4">Quer desenvolver um projeto?</h2>
         <p class="scroll-reveal scroll-reveal-delay-1 text-gray-400 mb-8">Nossa equipe está pronta para transformar sua necessidade em solução técnica.</p>
         <NuxtLink
           to="/agendar-reuniao"

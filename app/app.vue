@@ -19,7 +19,7 @@
 
     <!-- Conteúdo só aparece depois do loader sair -->
     <Transition name="content-fade">
-      <div v-if="!isLoading">
+      <div v-if="!isLoading" class="overflow-x-hidden">
         <NuxtLayout>
           <NuxtPage />
         </NuxtLayout>

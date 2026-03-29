@@ -1,25 +1,25 @@
 <template>
-  <div class="pt-20">
+  <div class="pt-16 sm:pt-20">
 
     <!-- Hero -->
-    <section class="relative bg-gray-950 py-28 px-4 overflow-hidden">
+    <section class="relative bg-gray-950 py-16 sm:py-24 md:py-28 px-4 overflow-hidden">
       <div class="absolute top-0 left-1/4 w-96 h-96 bg-[#f17b21] rounded-full blur-3xl opacity-10 pointer-events-none" />
       <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-[#f17b21] rounded-full blur-3xl opacity-10 pointer-events-none" />
       <div class="max-w-5xl mx-auto relative z-10 text-center">
         <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">A Empresa</span>
-        <h1 class="scroll-reveal scroll-reveal-delay-1 text-4xl md:text-6xl font-black text-white mt-3 mb-6 leading-tight">Quem Somos</h1>
-        <p class="scroll-reveal scroll-reveal-delay-2 text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+        <h1 class="scroll-reveal scroll-reveal-delay-1 text-3xl sm:text-4xl md:text-6xl font-black text-white mt-3 mb-4 sm:mb-6 leading-tight">Quem Somos</h1>
+        <p class="scroll-reveal scroll-reveal-delay-2 text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
           Engenharia com excelência, precisão e compromisso com a segurança industrial.
         </p>
       </div>
     </section>
 
     <!-- História -->
-    <section class="py-24 px-4 bg-white">
-      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section class="py-12 sm:py-24 px-4 bg-white overflow-hidden">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
         <div>
           <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">Nossa História</span>
-          <h2 class="scroll-reveal scroll-reveal-delay-1 text-3xl md:text-4xl font-black text-gray-900 mt-3 mb-6 leading-tight">
+          <h2 class="scroll-reveal scroll-reveal-delay-1 text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 mt-3 mb-4 sm:mb-6 leading-tight">
             Fundada para transformar a engenharia industrial
           </h2>
           <div class="scroll-reveal scroll-reveal-delay-2 space-y-4 text-gray-600 leading-relaxed">
@@ -29,11 +29,11 @@
           </div>
         </div>
         <div class="scroll-reveal scroll-reveal-delay-3 relative">
-          <div class="bg-gray-950 rounded-3xl p-10">
-            <div class="grid grid-cols-2 gap-8">
+          <div class="bg-gray-950 rounded-3xl p-6 sm:p-10">
+            <div class="grid grid-cols-2 gap-4 sm:gap-8">
               <div v-for="stat in stats" :key="stat.label" class="text-center">
-                <p class="text-4xl font-black text-[#f17b21]">{{ stat.value }}</p>
-                <p class="text-gray-400 text-sm mt-1">{{ stat.label }}</p>
+                <p class="text-2xl sm:text-4xl font-black text-[#f17b21]">{{ stat.value }}</p>
+                <p class="text-gray-400 text-xs sm:text-sm mt-1">{{ stat.label }}</p>
               </div>
             </div>
           </div>
@@ -44,11 +44,11 @@
     </section>
 
     <!-- Time -->
-    <section class="py-24 px-4 bg-gray-50">
+    <section class="py-12 sm:py-24 px-4 bg-gray-50">
       <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
+        <div class="text-center mb-8 sm:mb-16">
           <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">Pessoas</span>
-          <h2 class="scroll-reveal scroll-reveal-delay-1 text-3xl md:text-4xl font-black text-gray-900 mt-3">Nossa Equipe</h2>
+          <h2 class="scroll-reveal scroll-reveal-delay-1 text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 mt-3">Nossa Equipe</h2>
           <div class="scroll-reveal scroll-reveal-delay-2 w-12 h-1 bg-[#f17b21] mx-auto mt-4 rounded-full" />
           <p class="scroll-reveal scroll-reveal-delay-3 text-gray-500 text-sm mt-4 max-w-xl mx-auto">
             Profissionais especializados, certificados e comprometidos com a excelência técnica em cada projeto.
@@ -68,7 +68,7 @@
             :class="`scroll-reveal-delay-${Math.min(i + 1, 5)}`"
           >
             <!-- Header do card -->
-            <div class="bg-gray-950 px-8 pt-8 pb-14 relative">
+            <div class="bg-gray-950 px-5 sm:px-8 pt-5 sm:pt-8 pb-12 sm:pb-14 relative">
               <div class="absolute bottom-0 left-0 right-0 h-8 bg-white rounded-t-3xl" />
               <div class="flex items-start justify-between">
                 <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
@@ -96,7 +96,7 @@
             </div>
 
             <!-- Conteúdo -->
-            <div class="px-8 pb-8">
+            <div class="px-5 sm:px-8 pb-5 sm:pb-8">
               <h3 class="font-black text-gray-900 text-xl mt-1">{{ member.name }}</h3>
               <p class="text-[#f17b21] text-sm font-bold mt-0.5">{{ member.role }}</p>
               <p class="text-gray-500 text-sm mt-4 leading-relaxed">{{ member.bio }}</p>
@@ -130,10 +130,10 @@
                   v-if="member.email"
                   :to="`mailto:${member.email}`"
                   external
-                  class="flex items-center gap-1.5 text-xs text-gray-400 hover:text-[#f17b21] transition-colors duration-200"
+                  class="flex items-center gap-1.5 text-xs text-gray-400 hover:text-[#f17b21] transition-colors duration-200 min-w-0"
                 >
-                  <Icon name="lucide:mail" class="w-3.5 h-3.5" />
-                  {{ member.email }}
+                  <Icon name="lucide:mail" class="w-3.5 h-3.5 flex-shrink-0" />
+                  <span class="truncate">{{ member.email }}</span>
                 </NuxtLink>
               </div>
             </div>
@@ -143,11 +143,11 @@
     </section>
 
     <!-- Clientes -->
-    <section class="py-24 px-4 bg-white">
+    <section class="py-12 sm:py-24 px-4 bg-white">
       <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
+        <div class="text-center mb-8 sm:mb-16">
           <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">Confiança</span>
-          <h2 class="scroll-reveal scroll-reveal-delay-1 text-3xl md:text-4xl font-black text-gray-900 mt-3">Nossos Principais Clientes</h2>
+          <h2 class="scroll-reveal scroll-reveal-delay-1 text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 mt-3">Nossos Principais Clientes</h2>
           <div class="scroll-reveal scroll-reveal-delay-2 w-12 h-1 bg-[#f17b21] mx-auto mt-4 rounded-full" />
           <p class="scroll-reveal scroll-reveal-delay-3 text-gray-500 text-sm mt-4 max-w-xl mx-auto">
             Empresas que confiam na excelência técnica da Field Industrial.
@@ -158,7 +158,7 @@
           <div
             v-for="(client, i) in clients"
             :key="client.name"
-            class="scroll-reveal flex items-center justify-center p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:border-orange-200 hover:bg-orange-50 hover:shadow-md transition-all duration-300 group"
+            class="scroll-reveal flex items-center justify-center p-4 sm:p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:border-orange-200 hover:bg-orange-50 hover:shadow-md transition-all duration-300 group"
             :class="`scroll-reveal-delay-${Math.min(i + 1, 5)}`"
           >
             <img
@@ -172,11 +172,11 @@
     </section>
 
     <!-- Certificações -->
-    <section class="py-24 px-4 bg-white">
+    <section class="py-12 sm:py-24 px-4 bg-white">
       <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
+        <div class="text-center mb-8 sm:mb-16">
           <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">Qualidade</span>
-          <h2 class="scroll-reveal scroll-reveal-delay-1 text-3xl md:text-4xl font-black text-gray-900 mt-3">Certificações e Diferenciais</h2>
+          <h2 class="scroll-reveal scroll-reveal-delay-1 text-2xl sm:text-3xl md:text-4xl font-black text-gray-900 mt-3">Certificações e Diferenciais</h2>
           <div class="scroll-reveal scroll-reveal-delay-2 w-12 h-1 bg-[#f17b21] mx-auto mt-4 rounded-full" />
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -199,9 +199,9 @@
     </section>
 
     <!-- CTA -->
-    <section class="py-20 px-4 bg-gray-950">
+    <section class="py-12 sm:py-20 px-4 bg-gray-950">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="scroll-reveal text-3xl font-black text-white mb-4">Pronto para trabalhar com a gente?</h2>
+        <h2 class="scroll-reveal text-2xl sm:text-3xl font-black text-white mb-4">Pronto para trabalhar com a gente?</h2>
         <p class="scroll-reveal scroll-reveal-delay-1 text-gray-400 mb-8">Fale com nossos especialistas e descubra como podemos ajudar seu projeto.</p>
         <NuxtLink
           to="/agendar-reuniao"

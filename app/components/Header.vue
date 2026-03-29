@@ -1,6 +1,6 @@
 <template>
   <header
-    class="fixed top-0 left-0 w-full z-50 transition-all duration-500"
+    class="fixed top-0 left-0 w-full z-50 transition-all duration-500 overflow-x-hidden"
     :class="scrolled
       ? 'bg-white/90 backdrop-blur-lg shadow-[0_2px_20px_rgba(0,0,0,0.08)]'
       : 'bg-white'"
@@ -12,13 +12,13 @@
       <div class="flex items-center justify-between h-16 sm:h-20">
 
         <!-- Logo -->
-        <NuxtLink to="/" class="flex items-center gap-3 group">
+        <NuxtLink to="/" class="flex items-center gap-3 group flex-shrink-0 min-w-0">
           <div class="relative">
             <div class="absolute inset-0 bg-[#f17b21]/20 rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <img
               src="/img/svg/logo3.svg"
               alt="Field Industrial"
-              class="relative h-9 sm:h-11 transition-transform duration-300 group-hover:scale-105"
+              class="relative h-9 sm:h-11 w-auto max-w-[180px] sm:max-w-none transition-transform duration-300 group-hover:scale-105"
             />
           </div>
         </NuxtLink>
@@ -47,7 +47,7 @@
         </nav>
 
         <!-- CTA + Mobile button -->
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 flex-shrink-0">
           <NuxtLink
             to="/agendar-reuniao"
             class="hidden lg:flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-300 shadow-md hover:-translate-y-0.5 group"

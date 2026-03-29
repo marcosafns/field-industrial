@@ -1,35 +1,35 @@
 <template>
-  <div class="pt-20">
+  <div class="pt-16 sm:pt-20">
 
     <!-- Hero -->
-    <section class="relative bg-gray-950 py-28 px-4 overflow-hidden">
+    <section class="relative bg-gray-950 py-16 sm:py-24 md:py-28 px-4 overflow-hidden">
       <div class="absolute top-0 left-1/4 w-96 h-96 bg-[#f17b21] rounded-full blur-3xl opacity-10 pointer-events-none" />
       <div class="max-w-5xl mx-auto relative z-10 text-center">
         <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">Portfólio</span>
-        <h1 class="scroll-reveal scroll-reveal-delay-1 text-4xl md:text-6xl font-black text-white mt-3 mb-6 leading-tight">Projetos à Venda</h1>
-        <p class="scroll-reveal scroll-reveal-delay-2 text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+        <h1 class="scroll-reveal scroll-reveal-delay-1 text-3xl sm:text-4xl md:text-6xl font-black text-white mt-3 mb-4 sm:mb-6 leading-tight">Projetos à Venda</h1>
+        <p class="scroll-reveal scroll-reveal-delay-2 text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
           Projetos desenvolvidos pela nossa equipe, prontos para aquisição e implementação.
         </p>
       </div>
     </section>
 
     <!-- Intro -->
-    <section class="py-16 px-4 bg-white border-b border-gray-100">
+    <section class="py-8 sm:py-16 px-4 bg-white border-b border-gray-100">
       <div class="max-w-4xl mx-auto text-center">
-        <p class="scroll-reveal text-gray-600 text-lg leading-relaxed">
+        <p class="scroll-reveal text-gray-600 text-sm sm:text-lg leading-relaxed">
           Nossos projetos à venda são desenvolvidos com toda a documentação técnica necessária, incluindo memorial de cálculo, desenhos detalhados e especificações de fabricação. Cada projeto segue rigorosamente as normas ASME, ABNT e requisitos regulatórios aplicáveis.
         </p>
       </div>
     </section>
 
     <!-- Filtros -->
-    <section class="py-6 px-4 bg-white sticky top-20 z-10 border-b border-gray-100 shadow-sm">
-      <div class="max-w-6xl mx-auto flex flex-wrap gap-3 justify-center">
+    <section class="py-4 sm:py-6 px-4 bg-white sticky top-16 sm:top-20 z-10 border-b border-gray-100 shadow-sm">
+      <div class="max-w-6xl mx-auto flex gap-2 sm:gap-3 overflow-x-auto pb-1 justify-start sm:justify-center" style="-webkit-overflow-scrolling: touch; scrollbar-width: none;">
         <button
           v-for="cat in categories"
           :key="cat"
           @click="activeCategory = cat"
-          class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200"
+          class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap flex-shrink-0 transition-all duration-200"
           :class="activeCategory === cat ? 'bg-[#f17b21] text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
         >{{ cat }}</button>
       </div>
@@ -119,8 +119,8 @@
           </div>
 
           <!-- Conteúdo -->
-          <div class="p-8">
-            <h2 class="text-xl font-black text-gray-900 mb-3">{{ selected.title }}</h2>
+          <div class="p-5 sm:p-8">
+            <h2 class="text-lg sm:text-xl font-black text-gray-900 mb-3">{{ selected.title }}</h2>
             <p class="text-gray-500 text-sm leading-relaxed mb-6">{{ selected.desc }}</p>
 
             <div class="flex flex-wrap gap-2 mb-6">
@@ -159,9 +159,9 @@
     </Transition>
 
     <!-- CTA -->
-    <section class="py-20 px-4 bg-white border-t border-gray-100">
+    <section class="py-12 sm:py-20 px-4 bg-white border-t border-gray-100">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="scroll-reveal text-3xl font-black text-gray-900 mb-4">Não encontrou o que procura?</h2>
+        <h2 class="scroll-reveal text-2xl sm:text-3xl font-black text-gray-900 mb-4">Não encontrou o que procura?</h2>
         <p class="scroll-reveal scroll-reveal-delay-1 text-gray-500 mb-8">Desenvolvemos projetos customizados conforme sua necessidade.</p>
         <NuxtLink
           to="/agendar-reuniao"
