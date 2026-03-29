@@ -299,7 +299,10 @@ const meetings = computed(() => {
 async function fetchMeetings() {
   loading.value = true
   try {
-    allMeetings.value = await $fetch('/api/meetings')
+    const result = await $fetch('/api/meetings')
+    allMeetings.value = Array.isArray(result) ? result : []
+  } catch {
+    allMeetings.value = []
   } finally {
     loading.value = false
   }

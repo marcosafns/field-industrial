@@ -173,8 +173,11 @@ const pieChart = ref(null)
 
 async function fetchMeetings() {
   try {
-    meetings.value = await $fetch('/api/meetings')
-  } catch {}
+    const result = await $fetch('/api/meetings')
+    meetings.value = Array.isArray(result) ? result : []
+  } catch {
+    meetings.value = []
+  }
 }
 
 const metrics = computed(() => {

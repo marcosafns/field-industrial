@@ -12,14 +12,11 @@ export default defineEventHandler(async (event) => {
 
   const { data, error } = await supabase
     .from('meeting_requests')
-    .select('*, assigned_name:admins!meeting_requests_assigned_to_fkey(name)')
+    .select('*')
     .eq('id', id)
     .single()
 
   if (error || !data) throw createError({ statusCode: 404, message: 'Não encontrado' })
 
-  return {
-    ...data,
-    assigned_name: data.assigned_name?.name ?? null,
-  }
+  return data
 })

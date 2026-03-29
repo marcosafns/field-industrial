@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 
   let q = supabase
     .from('meeting_requests')
-    .select(`*, assigned_name:admins!meeting_requests_assigned_to_fkey(name)`)
+    .select('*')
     .order('created_at', { ascending: false })
 
   if (status) q = q.eq('status', status as string)
@@ -23,8 +23,5 @@ export default defineEventHandler(async (event) => {
 
   if (error) throw createError({ statusCode: 500, message: error.message })
 
-  return (data || []).map((m: any) => ({
-    ...m,
-    assigned_name: m.assigned_name?.name ?? null,
-  }))
+  return data || []
 })
