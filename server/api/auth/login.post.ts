@@ -17,7 +17,12 @@ export default defineEventHandler(async (event) => {
     .eq('email', email)
     .single()
 
-  if (error || !admin) {
+  if (error && error.code !== 'PGRST116') {
+    console.error('[login] Supabase error:', error.message, error.code)
+    throw createError({ statusCode: 500, message: 'Erro ao conectar ao banco de dados' })
+  }
+
+  if (!admin) {
     throw createError({ statusCode: 401, message: 'Credenciais inválidas' })
   }
 
