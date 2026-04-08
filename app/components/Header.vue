@@ -131,7 +131,7 @@ const navItems = [
   { href: '/valores', label: 'Valores' },
   { href: '/servicos', label: 'Serviços' },
   { href: '/projetos-a-venda', label: 'Projetos à Venda' },
-  { href: '/projetos-de-engenharia', label: 'Projetos de Engenharia' },
+  { href: '/projetos-de-engenharia', label: 'Documentos a Venda' },
 ]
 
 function isActive(href) {

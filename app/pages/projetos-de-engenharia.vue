@@ -5,10 +5,10 @@
     <section class="relative bg-gray-950 py-16 sm:py-24 md:py-28 px-4 overflow-hidden">
       <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-[#f17b21] rounded-full blur-3xl opacity-10 pointer-events-none" />
       <div class="max-w-5xl mx-auto relative z-10 text-center">
-        <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">Cases</span>
-        <h1 class="scroll-reveal scroll-reveal-delay-1 text-3xl sm:text-4xl md:text-6xl font-black text-white mt-3 mb-4 sm:mb-6 leading-tight">Projetos de Engenharia</h1>
+        <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">Catálogo</span>
+        <h1 class="scroll-reveal scroll-reveal-delay-1 text-3xl sm:text-4xl md:text-6xl font-black text-white mt-3 mb-4 sm:mb-6 leading-tight">Documentos a Venda</h1>
         <p class="scroll-reveal scroll-reveal-delay-2 text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-          Conheça os projetos desenvolvidos e executados pela nossa equipe técnica.
+          Modelos e templates de engenharia prontos para uso, seguindo as principais normas industriais.
         </p>
       </div>
     </section>
@@ -186,7 +186,7 @@
 </template>
 
 <script setup>
-useSeoMeta({ title: 'Projetos de Engenharia — Field Industrial' })
+useSeoMeta({ title: 'Documentos a Venda — Field Industrial' })
 
 const activeCategory = ref('Todos')
 const selected = ref(null)
