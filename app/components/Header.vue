@@ -12,7 +12,7 @@
       <div class="flex items-center justify-between h-16 sm:h-20">
 
         <!-- Logo -->
-        <NuxtLink to="/" class="flex items-center gap-3 group flex-shrink-0 min-w-0">
+        <NuxtLink to="/" class="flex flex-col items-center gap-1 group flex-shrink-0 min-w-0">
           <div class="relative">
             <div class="absolute inset-0 bg-[#f17b21]/20 rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <img
@@ -21,6 +21,7 @@
               class="relative h-9 sm:h-11 w-auto max-w-[180px] sm:max-w-none transition-transform duration-300 group-hover:scale-105"
             />
           </div>
+          <span class="text-[9px] sm:text-[10px] font-bold text-gray-500 tracking-tighter sm:tracking-normal uppercase whitespace-nowrap opacity-80 group-hover:text-[#f17b21] transition-colors duration-300">Transformando desafios em oportunidades</span>
         </NuxtLink>
 
         <!-- Nav Desktop -->

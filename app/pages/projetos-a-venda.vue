@@ -6,7 +6,7 @@
       <div class="absolute top-0 left-1/4 w-96 h-96 bg-[#f17b21] rounded-full blur-3xl opacity-10 pointer-events-none" />
       <div class="max-w-5xl mx-auto relative z-10 text-center">
         <span class="scroll-reveal text-[#f17b21] text-xs font-bold tracking-widest uppercase">Portfólio</span>
-        <h1 class="scroll-reveal scroll-reveal-delay-1 text-3xl sm:text-4xl md:text-6xl font-black text-white mt-3 mb-4 sm:mb-6 leading-tight">Projetos à Venda</h1>
+        <h1 class="scroll-reveal scroll-reveal-delay-1 text-3xl sm:text-4xl md:text-6xl font-black text-white mt-3 mb-4 sm:mb-6 leading-tight">Projetos A Venda</h1>
         <p class="scroll-reveal scroll-reveal-delay-2 text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
           Projetos desenvolvidos pela nossa equipe, prontos para aquisição e implementação.
         </p>
@@ -182,65 +182,21 @@ useSeoMeta({ title: 'Projetos à Venda — Field Industrial' })
 const activeCategory = ref('Todos')
 const selected = ref(null)
 
-const categories = ['Todos', 'Vasos de Pressão', 'Caldeiras', 'Estruturas Metálicas', 'Tubulações']
+const categories = ['Todos', 'Segurança', 'Estrutural', 'Equipamentos', 'Tubulações', 'Layout']
 
 const projects = [
-  {
-    title: 'Vaso de Pressão Horizontal — 10m³',
-    category: 'Vasos de Pressão',
-    image: '/img/proj1.jpeg',
-    norm: 'ASME VIII',
-    desc: 'Projeto completo de vaso de pressão horizontal com memorial de cálculo, desenhos detalhados e especificações de fabricação.',
-    tags: ['ASME VIII', 'Memorial de Cálculo', 'Desenhos 2D/3D'],
-  },
-  {
-    title: 'Vaso de Pressão Vertical — 5m³',
-    category: 'Vasos de Pressão',
-    image: '/img/proj2.jpeg',
-    norm: 'ASME VIII',
-    desc: 'Projeto de vaso vertical para armazenamento de fluidos sob pressão, com análise estrutural completa.',
-    tags: ['ASME VIII', 'NR-13', 'Análise Estrutural'],
-  },
-  {
-    title: 'Caldeira de Vapor — 500kg/h',
-    category: 'Caldeiras',
-    image: '/img/proj3.jpeg',
-    norm: 'NR-13',
-    desc: 'Projeto de caldeira flamotubular para geração de vapor saturado, documentação técnica completa conforme NR-13.',
-    tags: ['NR-13', 'Flamotubular', 'Vapor Saturado'],
-  },
-  {
-    title: 'Estrutura Metálica Industrial',
-    category: 'Estruturas Metálicas',
-    image: '/img/proj4.jpeg',
-    norm: 'ABNT NBR',
-    desc: 'Projeto estrutural metálico para galpão industrial com perfis laminados e dimensionamento completo.',
-    tags: ['ABNT NBR 8681', 'Perfis Laminados', 'Galpão'],
-  },
-  {
-    title: 'Sistema de Tubulação de Processo',
-    category: 'Tubulações',
-    image: '/img/proj5.jpeg',
-    norm: 'ASME B31.3',
-    desc: 'Projeto de tubulação de processo para linha de vapor e condensado, isométricos e suportação.',
-    tags: ['ASME B31.3', 'Isométricos', 'Suportação'],
-  },
-  {
-    title: 'Trocador de Calor Casco-Tubo',
-    category: 'Vasos de Pressão',
-    image: '/img/proj6.jpeg',
-    norm: 'TEMA',
-    desc: 'Projeto completo de trocador de calor tipo casco-tubo com cálculo térmico e mecânico conforme TEMA.',
-    tags: ['TEMA', 'Cálculo Térmico', 'ASME VIII'],
-  },
-  {
-    title: 'Caldeira Industrial — 1000kg/h',
-    category: 'Caldeiras',
-    image: '/img/proj7.jpeg',
-    norm: 'NR-13',
-    desc: 'Projeto de caldeira aquatubular de alta capacidade para processo industrial, com documentação técnica completa.',
-    tags: ['NR-13', 'Aquatubular', 'Alta Capacidade'],
-  },
+  { title: 'Projeto de linha de vida (NR-35)', category: 'Segurança', image: '/img/blueprint_technical.png', norm: 'NR-35', desc: 'Projeto completo com memorial de cálculo e detalhamento para sistemas de proteção contra quedas.', tags: ['NR-35', 'Proteção', 'Cálculo'] },
+  { title: 'Projeto de dispositivo de içamento', category: 'Equipamentos', image: '/img/piping_system.png', norm: 'NBR 8400', desc: 'Dimensionamento de olhais ou balancins conforme normas de segurança para movimentação de cargas.', tags: ['Içamento', 'Olhal', 'Segurança'] },
+  { title: 'Projeto de suporte metálico industrial', category: 'Estrutural', image: '/img/stress_analysis.png', norm: 'NBR 8800', desc: 'Desenvolvimento de suportação robusta para tubulações, dutos e equipamentos de grande porte.', tags: ['Suporte', 'Estrutura', 'Industrial'] },
+  { title: 'Projeto de proteção mecânica (NR-12)', category: 'Segurança', image: '/img/proj5.jpeg', norm: 'NR-12', desc: 'Soluções para enclausuramento e proteção de partes móveis de máquinas e equipamentos conforme NR-12.', tags: ['NR-12', 'Proteção', 'Máquinas'] },
+  { title: 'Projeto de plataforma e guarda-corpo', category: 'Estrutural', image: '/img/proj1.jpeg', norm: 'NR-12/18', desc: 'Plataformas de acesso, escadas e guarda-corpo dimensionados para segurança e durabilidade.', tags: ['Escada', 'Plataforma', 'Acessibilidade'] },
+  { title: 'Projeto de pipe rack simples', category: 'Estrutural', image: '/img/proj2.jpeg', norm: 'NBR 8800', desc: 'Estrutura metálica para suporte e organização de tubulações industriais em diversos níveis.', tags: ['Pipe Rack', 'Tubulação', 'Estrutura'] },
+  { title: 'Projeto de base metálica', category: 'Estrutural', image: '/img/proj3.jpeg', norm: 'NBR 8800', desc: 'Base dimensionada para fixação e suporte de motores, bombas e equipamentos pesados.', tags: ['Base', 'Motor', 'Equipamento'] },
+  { title: 'Projeto de tanque simples', category: 'Equipamentos', image: '/img/proj6.jpeg', norm: 'NBR 7821', desc: 'Projeto de tanque de armazenamento atmosférico para fluidos não corrosivos.', tags: ['Tanque', 'Armazenamento', 'Cálculo'] },
+  { title: 'Projeto de duto industrial', category: 'Tubulações', image: '/img/proj7.jpeg', norm: 'ASME B31', desc: 'Dutos de exaustão, ventilação ou transporte de fluidos com detalhamento de fabricação.', tags: ['Duto', 'Exaustão', 'Tubulação'] },
+  { title: 'Projeto de layout industrial', category: 'Layout', image: '/img/docs/industrial_office.jpg', norm: 'ISO 9001', desc: 'Otimização de espaço e fluxo operacional para plantas industriais e oficinas.', tags: ['Layout', 'Fluxo', 'Eficiência'] },
+  { title: 'Projeto de reforço estrutural', category: 'Estrutural', image: '/img/docs/calculation_structural.png', norm: 'NBR 8800', desc: 'Avaliação e projeto de reforço para adequação de cargas em estruturas existentes.', tags: ['Reforço', 'Avaliação', 'Segurança'] },
+  { title: 'Projeto de dispositivo de montagem', category: 'Equipamentos', image: '/img/proj4.jpeg', norm: 'Industrial', desc: 'Dispositivos especiais para auxílio em montagem e manutenção de componentes complexos.', tags: ['Montagem', 'Manutenção', 'Suporte'] },
 ]
 
 const filteredProjects = computed(() =>

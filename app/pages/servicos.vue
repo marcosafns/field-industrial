@@ -88,27 +88,31 @@ useSeoMeta({ title: 'Serviços — Field Industrial' })
 
 const services = [
   {
-    icon: 'lucide:search',
-    title: 'Acompanhamento e Inspeção de Fabricação',
-    desc: 'Monitoramento técnico completo durante o processo de fabricação industrial, garantindo conformidade com especificações de projeto e normas aplicáveis.',
+    icon: 'lucide:scan',
+    title: 'Engenharia Reversa',
+    desc: 'Transformamos equipamentos existentes em soluções completas de engenharia, mesmo na ausência de documentação técnica original. Realizamos o levantamento detalhado de componentes e sistemas industriais, identificando dimensões, materiais, funcionamento e condições operacionais. A partir disso, desenvolvemos modelos 3D, desenhos técnicos e toda a documentação necessária para reprodução, substituição ou melhoria do equipamento. Atuamos com foco em confiabilidade, precisão dimensional e conformidade normativa, garantindo que os componentes projetados atendam às exigências reais de operação.',
     items: [
-      'Inspeção de materiais e certificados',
-      'Acompanhamento de processos de fabricação',
-      'Verificação dimensional e geométrica',
-      'Relatórios técnicos detalhados',
-      'Conformidade com normas ASME, AWS e ABNT',
+      'Reprodução de peças sem desenho original',
+      'Substituição de componentes obsoletos',
+      'Nacionalização de equipamentos',
+      'Otimização de desempenho e vida útil',
+      'Apoio técnico à manutenção',
+      'Levantamento dimensional in loco',
+      'Modelagem 3D e detalhamento técnico',
     ],
   },
   {
-    icon: 'lucide:settings',
-    title: 'Supervisão e Validação de Montagem Mecânica e Soldagem',
-    desc: 'Supervisão técnica especializada em montagem mecânica e processos de soldagem, assegurando qualidade e segurança na execução dos trabalhos.',
+    icon: 'lucide:search',
+    title: 'Acompanhamento de Fabricação, Montagem, Soldagem e Inspeção de Equipamentos Industriais',
+    desc: 'Monitoramento técnico completo e supervisão especializada durante os processos de fabricação, montagem mecânica e soldagem, garantindo conformidade com especificações de projeto e normas técnicas.',
     items: [
+      'Inspeção de materiais e certificados',
+      'Acompanhamento de processos de fabricação',
       'Qualificação de procedimentos de soldagem (WPS/PQR)',
-      'Inspeção visual e dimensional de soldas',
-      'Supervisão de montagem mecânica',
+      'Supervisão de montagem mecânica e soldas',
+      'Verificação dimensional e geométrica',
       'Testes de estanqueidade e pressão',
-      'Documentação técnica e registros de inspeção',
+      'Conformidade com normas ASME, AWS e ABNT',
     ],
   },
   {
@@ -126,7 +130,7 @@ const services = [
   {
     icon: 'lucide:clipboard-list',
     title: 'Laudos de Integridade Mecânica',
-    desc: 'Avaliação técnica e emissão de laudos de integridade mecânica conforme NR-13, NR-12, códigos ASME e demais requisitos regulatórios.',
+    desc: 'Avaliação técnica e emissão de laudos de integridade mecânica conforme normas regulamentadoras pertinentes, códigos ASME e demais requisitos regulatórios.',
     items: [
       'Laudo de vasos de pressão (NR-13)',
       'Laudo de caldeiras e tubulações',
@@ -157,19 +161,6 @@ const services = [
       'Suporte técnico metalúrgico',
       'Reparo e recuperação de equipamentos',
       'Controle de qualidade na fabricação',
-    ],
-  },
-  {
-    icon: 'lucide:scan',
-    title: 'Engenharia Reversa de Equipamentos',
-    desc: 'Coleta de medidas e dados de equipamentos existentes para desenvolvimento de projetos técnicos completos, permitindo fabricação de réplicas, peças de reposição ou modernização sem documentação original.',
-    items: [
-      'Levantamento dimensional in loco de equipamentos',
-      'Desenvolvimento de desenhos técnicos a partir das medidas coletadas',
-      'Especificação de materiais e processos de fabricação',
-      'Projeto para fabricação de peças e componentes sem documentação original',
-      'Modernização e adequação normativa de equipamentos legados',
-      'Memorial de cálculo retroativo conforme ASME e ABNT',
     ],
   },
 ]

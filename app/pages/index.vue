@@ -24,7 +24,7 @@
           :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
         >
           <span class="w-2 h-2 rounded-full bg-[#f17b21] animate-pulse" />
-          <span class="text-[#f17b21] text-xs font-semibold tracking-wider sm:tracking-widest uppercase">Engenharia Industrial</span>
+          <span class="text-[#f17b21] text-xs font-semibold tracking-wider sm:tracking-widest uppercase">Engenharia Mecânica de Equipamentos Industriais</span>
         </div>
 
         <!-- Título -->
@@ -33,9 +33,9 @@
           :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
         >
           Engenharia Mecânica,
-          <span class="text-[#f17b21]">Inspeção</span>,
-          Fabricação e
-          <span class="text-[#f17b21]">Integridade Industrial</span>
+          <span class="text-[#f17b21]">Inspeção</span> e
+          Fabricação de
+          <span class="text-[#f17b21]">Equipamentos Industriais</span>
         </h1>
 
         <!-- Subtítulo -->
@@ -43,8 +43,7 @@
           class="text-gray-300 text-xs sm:text-sm md:text-lg max-w-2xl mb-5 sm:mb-10 leading-relaxed transition-all duration-700 delay-300"
           :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
         >
-          Atuação técnica em estudo, desenvolvimento, validação e execução de soluções industriais
-          conforme normas regulamentadoras nacionais, internacionais e códigos aplicáveis.
+          Desenvolvimento de soluções para problemas complexos industriais, de acordo com normas regulamentadoras e viabilização orçamentária com foco em custos competitivos.
         </p>
 
         <!-- Botões -->
@@ -53,7 +52,7 @@
           :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
         >
           <NuxtLink to="servicos" class="text-center bg-[#f17b21] text-white font-semibold px-7 py-3 rounded-full hover:bg-[#d96a10] transition-all duration-300 shadow-lg hover:-translate-y-0.5">Serviços</NuxtLink>
-          <NuxtLink to="projetos-de-engenharia" class="text-center bg-white/10 backdrop-blur-sm text-white font-semibold px-7 py-3 rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 hover:-translate-y-0.5">Projetos Técnicos</NuxtLink>
+          <NuxtLink to="projetos-de-engenharia" class="text-center bg-white/10 backdrop-blur-sm text-white font-semibold px-7 py-3 rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 hover:-translate-y-0.5">Projetos de Engenharia</NuxtLink>
           <NuxtLink to="agendar-reuniao" class="text-center bg-transparent text-[#f17b21] font-semibold px-7 py-3 rounded-full border border-[#f17b21] hover:bg-[#f17b21] hover:text-white transition-all duration-300 hover:-translate-y-0.5">Agendar Reunião</NuxtLink>
         </div>
 
@@ -162,7 +161,7 @@
           <div class="w-12 h-1 bg-[#f17b21] mt-4 rounded-full" />
         </div>
         <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
-          Somos uma empresa especializada em engenharia mecânica industrial, com atuação técnica em inspeção, fabricação e integridade de equipamentos. Nossa trajetória é marcada pelo compromisso com a excelência técnica e pela conformidade com as mais rigorosas normas nacionais e internacionais.
+          Fundada em 2022, a Field Industrial é uma empresa de engenharia mecânica especializada em equipamentos estáticos industriais e tubulações de processo. Atuamos no desenvolvimento de projetos de engenharia, engenharia reversa, avaliações técnicas e suporte especializado para ativos industriais, sempre com foco em segurança, confiabilidade e viabilidade econômica. Nossa equipe reúne décadas de experiência prática na indústria, transformando desafios de campo em soluções de engenharia seguras e eficientes.
         </p>
         <div class="grid grid-cols-1 gap-3">
           <div v-for="item in diferenciais" :key="item.text" class="flex items-center gap-3">
@@ -494,10 +493,10 @@ function initParticles() {
 }
 
 const services = [
-  { title: 'Acompanhamento e Inspeção de Fabricação', description: 'Inspeção técnica durante o processo de fabricação industrial, garantindo conformidade com normas e especificações do projeto.', icon: 'lucide:search' },
-  { title: 'Supervisão de Montagem e Soldagem', description: 'Supervisão e validação de montagem mecânica e soldagem, assegurando qualidade e rastreabilidade em cada etapa.', icon: 'lucide:wrench' },
+  { title: 'Engenharia Reversa', description: 'Transformamos equipamentos existentes em soluções completas de engenharia, mesmo na ausência de documentação técnica original. Realizamos o levantamento detalhado de componentes e sistemas industriais, identificando dimensões, materiais e funcionamento para reprodução ou melhoria.', icon: 'lucide:scan' },
+  { title: 'Acompanhamento de Fabricação, Montagem, Soldagem e Inspeção de Equipamentos Industriais', description: 'Inspeção técnica e supervisão de fabricação, montagem mecânica e soldagem, garantindo conformidade com normas e especificações técnicas em cada etapa.', icon: 'lucide:search' },
   { title: 'Desenvolvimento de Equipamentos', description: 'Estudo e desenvolvimento de equipamentos industriais com memorial de cálculo e projeto detalhado conforme normas aplicáveis.', icon: 'lucide:cpu' },
-  { title: 'Laudos de Integridade Mecânica', description: 'Avaliação técnica e emissão de laudos conforme NR-13, NR-12, códigos ASME e demais requisitos regulatórios.', icon: 'lucide:file-check' },
+  { title: 'Laudos de Integridade Mecânica', description: 'Avaliação técnica e emissão de laudos conforme normas regulamentadoras pertinentes, códigos ASME e demais requisitos regulatórios.', icon: 'lucide:file-check' },
   { title: 'Gestão de Paradas e Manutenção', description: 'Planejamento, gestão e auditoria de paradas de manutenção e obras industriais com foco em segurança e eficiência.', icon: 'lucide:clipboard-list' },
   { title: 'Caldeiraria & Solda', description: 'Fabricação e suporte metalúrgico especializado em caldeiraria e soldagem com controle de qualidade e rastreabilidade.', icon: 'lucide:flame' },
 ]
@@ -517,25 +516,26 @@ const valores = [
 ]
 
 const tabs = [
-  { key: 'engenharia', label: 'Projetos de Engenharia' },
-  { key: 'venda', label: 'Projetos à Venda' },
-]
-
-const projetosEngenharia = [
-  { title: 'Inspeção de Vasos de Pressão', description: 'Avaliação técnica e emissão de laudo de integridade conforme NR-13 e código ASME VIII.', image: '/img/proj1.jpeg', tag: 'NR-13', link: 'projetos-de-engenharia' },
-  { title: 'Supervisão de Montagem Mecânica', description: 'Supervisão e validação de montagem de estruturas metálicas e equipamentos rotativos.', image: '/img/proj2.jpeg', tag: 'Montagem', link: 'projetos-de-engenharia' },
-  { title: 'Gestão de Parada de Manutenção', description: 'Planejamento e auditoria de parada geral em planta petroquímica com escopo de 45 dias.', image: '/img/proj3.jpeg', tag: 'Manutenção', link: 'projetos-de-engenharia' },
-  { title: 'Projeto de Caldeiraria Industrial', description: 'Desenvolvimento de projeto detalhado e fabricação de estrutura metálica sob norma AWS D1.1.', image: '/img/proj4.jpeg', tag: 'Caldeiraria', link: 'projetos-de-engenharia' },
+  { key: 'venda', label: 'Projetos A Venda' },
+  { key: 'documentos', label: 'Documentos a Venda' },
 ]
 
 const projetosVenda = [
-  { title: 'Projeto Estrutural Galpão Industrial', description: 'Projeto completo com memorial de cálculo para galpão metálico de 2.000m².', image: '/img/proj5.jpeg', tag: 'Estrutural', link: 'projetos-a-venda' },
-  { title: 'Memorial de Cálculo — Vaso de Pressão', description: 'Projeto detalhado de vaso de pressão vertical conforme ASME VIII Div. 1.', image: '/img/proj6.jpeg', tag: 'ASME', link: 'projetos-a-venda' },
-  { title: 'Projeto de Tubulação Industrial', description: 'Projeto isométrico e stress analysis de linhas de processo conforme ASME B31.3.', image: '/img/proj7.jpeg', tag: 'Tubulação', link: 'projetos-a-venda' },
+  { title: 'Projeto de linha de vida (NR-35)', description: 'Projeto completo com memorial de cálculo e detalhamento para sistemas de proteção contra quedas.', image: '/img/blueprint_technical.png', tag: 'NR-35', link: 'projetos-a-venda' },
+  { title: 'Projeto de dispositivo de içamento', description: 'Dimensionamento de olhais ou balancins conforme normas de segurança para movimentação de cargas.', image: '/img/piping_system.png', tag: 'Içamento', link: 'projetos-a-venda' },
+  { title: 'Projeto de suporte metálico industrial', description: 'Desenvolvimento de suportação robusta para tubulações, dutos e equipamentos de grande porte.', image: '/img/stress_analysis.png', tag: 'Estrutural', link: 'projetos-a-venda' },
+  { title: 'Projeto de proteção mecânica (NR-12)', description: 'Soluções para enclausuramento e proteção de partes móveis de máquinas e equipamentos.', image: '/img/proj5.jpeg', tag: 'NR-12', link: 'projetos-a-venda' },
+]
+
+const documentosVenda = [
+  { title: 'Modelo de laudo de integridade mecânica', description: 'Template profissional pronto para uso em avaliações Técnicas de integridade de ativos.', image: '/img/docs/integrity_report.png', tag: 'Laudo', link: 'projetos-de-engenharia' },
+  { title: 'Modelo de relatório de inspeção técnica industrial', description: 'Estrutura completa para relatórios de campo com fotos e pareceres especializados.', image: '/img/proj1.jpeg', tag: 'Inspeção', link: 'projetos-de-engenharia' },
+  { title: 'Modelo de parecer técnico mecânico', description: 'Documento focado em análise técnica para embasamento de tomadas de decisão industrial.', image: '/img/docs/technical_opinion.jpg', tag: 'Parecer', link: 'projetos-de-engenharia' },
+  { title: 'Modelo de memorial de cálculo estrutural', description: 'Planilha e documento base para dimensionamento de estruturas metálicas industriais.', image: '/img/docs/calculation_structural.png', tag: 'Cálculo', link: 'projetos-de-engenharia' },
 ]
 
 const activeProjects = computed(() =>
-  activeTab.value === 'engenharia' ? projetosEngenharia : projetosVenda
+  activeTab.value === 'venda' ? projetosVenda : documentosVenda
 )
 
 const dots = computed(() =>

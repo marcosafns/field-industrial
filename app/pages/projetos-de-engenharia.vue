@@ -191,7 +191,7 @@ useSeoMeta({ title: 'Projetos de Engenharia — Field Industrial' })
 const activeCategory = ref('Todos')
 const selected = ref(null)
 
-const categories = ['Todos', 'Inspeção', 'Projetos Mecânicos', 'Paradas de Manutenção', 'Laudos Técnicos']
+const categories = ['Todos', 'Modelos de Laudo', 'Relatórios', 'Planejamento', 'Técnicos']
 
 const stats = [
   { value: '200+', label: 'Projetos concluídos' },
@@ -201,97 +201,23 @@ const stats = [
 ]
 
 const projects = [
-  {
-    image: '/img/proj1.jpeg',
-    title: 'Inspeção de Vasos de Pressão — Petroquímica',
-    category: 'Inspeção',
-    status: 'Concluído',
-    desc: 'Inspeção completa de 12 vasos de pressão em planta petroquímica, incluindo ensaios não destrutivos, avaliação de integridade e emissão de laudos conforme NR-13.',
-    details: [
-      { label: 'Duração', value: '45 dias' },
-      { label: 'Equipamentos', value: '12 vasos' },
-      { label: 'Norma', value: 'NR-13 / ASME' },
-    ],
-    tags: ['NR-13', 'END', 'Laudo Técnico', 'Petroquímica'],
-  },
-  {
-    image: '/img/proj2.jpeg',
-    title: 'Supervisão de Montagem — Planta Industrial',
-    category: 'Inspeção',
-    status: 'Concluído',
-    desc: 'Supervisão técnica de montagem mecânica e soldagem de estruturas e equipamentos em nova planta industrial, garantindo conformidade com projetos e normas aplicáveis.',
-    details: [
-      { label: 'Duração', value: '90 dias' },
-      { label: 'Equipe', value: '8 profissionais' },
-      { label: 'Norma', value: 'AWS / ASME' },
-    ],
-    tags: ['Soldagem', 'Montagem Mecânica', 'AWS D1.1'],
-  },
-  {
-    image: '/img/proj3.jpeg',
-    title: 'Desenvolvimento de Vaso de Pressão Vertical',
-    category: 'Projetos Mecânicos',
-    status: 'Concluído',
-    desc: 'Projeto mecânico completo de vaso de pressão vertical para refinaria, incluindo memorial de cálculo ASME VIII, desenhos de fabricação e documentação técnica.',
-    details: [
-      { label: 'Volume', value: '25m³' },
-      { label: 'Pressão', value: '16 kgf/cm²' },
-      { label: 'Norma', value: 'ASME VIII Div.1' },
-    ],
-    tags: ['ASME VIII', 'Memorial de Cálculo', 'Refinaria'],
-  },
-  {
-    image: '/img/proj4.jpeg',
-    title: 'Gestão de Parada de Manutenção — Indústria Química',
-    category: 'Paradas de Manutenção',
-    status: 'Concluído',
-    desc: 'Planejamento e gestão completa de parada de manutenção anual em planta química, coordenando mais de 60 profissionais e 200 ordens de serviço.',
-    details: [
-      { label: 'Duração', value: '21 dias' },
-      { label: 'Equipe', value: '60+ profissionais' },
-      { label: 'OS executadas', value: '200+' },
-    ],
-    tags: ['Parada', 'Manutenção', 'Indústria Química'],
-  },
-  {
-    image: '/img/proj5.jpeg',
-    title: 'Laudos de Integridade — Parque de Tanques',
-    category: 'Laudos Técnicos',
-    status: 'Concluído',
-    desc: 'Avaliação técnica e emissão de laudos de integridade mecânica para parque de tanques de armazenamento, incluindo inspeção interna, externa e análise de vida remanescente.',
-    details: [
-      { label: 'Tanques', value: '8 unidades' },
-      { label: 'Norma', value: 'API 653' },
-      { label: 'Relatórios', value: '8 laudos' },
-    ],
-    tags: ['API 653', 'Tanques', 'Laudo Técnico'],
-  },
-  {
-    image: '/img/proj6.jpeg',
-    title: 'Projeto de Tubulação Industrial',
-    category: 'Projetos Mecânicos',
-    status: 'Concluído',
-    desc: 'Desenvolvimento de projeto de tubulação de processo para planta industrial, com isométricos, suportação e documentação técnica conforme ASME B31.3.',
-    details: [
-      { label: 'Extensão', value: '1.200m' },
-      { label: 'Norma', value: 'ASME B31.3' },
-      { label: 'Isométricos', value: '48 folhas' },
-    ],
-    tags: ['ASME B31.3', 'Tubulação', 'Isométricos'],
-  },
-  {
-    image: '/img/proj7.jpeg',
-    title: 'Auditoria de Parada — Refinaria',
-    category: 'Paradas de Manutenção',
-    status: 'Concluído',
-    desc: 'Auditoria técnica completa de parada de manutenção em refinaria, com avaliação de escopo, segurança, qualidade e conformidade regulatória.',
-    details: [
-      { label: 'Duração', value: '30 dias' },
-      { label: 'Equipamentos', value: '35 itens' },
-      { label: 'Relatórios', value: '12 docs' },
-    ],
-    tags: ['Auditoria', 'Refinaria', 'NR-13'],
-  },
+  { title: 'Modelo de laudo de integridade mecânica', category: 'Modelos de Laudo', image: '/img/docs/integrity_report.png', status: 'Template', desc: 'Template profissional pronto para uso em avaliações técnicas de integridade de ativos.', details: [{ label: 'Formato', value: 'DOCX/PDF' }, { label: 'Páginas', value: '15+' }, { label: 'Norma', value: 'NR-13/ASME' }], tags: ['Laudo', 'Integridade', 'Mecânica'] },
+  { title: 'Modelo de relatório de inspeção técnica industrial', category: 'Relatórios', image: '/img/proj1.jpeg', status: 'Template', desc: 'Estrutura completa para relatórios de campo com campos para fotos e pareceres.', details: [{ label: 'Formato', value: 'DOCX' }, { label: 'Aplicação', value: 'Campo' }, { label: 'Setor', value: 'Industrial' }], tags: ['Inspeção', 'Relatório', 'Técnico'] },
+  { title: 'Modelo de parecer técnico mecânico', category: 'Técnicos', image: '/img/docs/technical_opinion.jpg', status: 'Template', desc: 'Documento focado em análise técnica para embasamento de tomadas de decisão.', details: [{ label: 'Formato', value: 'DOCX' }, { label: 'Foco', value: 'Decisão' }], tags: ['Parecer', 'Engenharia'] },
+  { title: 'Modelo de memorial de cálculo estrutural', category: 'Técnicos', image: '/img/docs/calculation_structural.png', status: 'Template', desc: 'Planilha e documento base para dimensionamento de estruturas metálicas.', details: [{ label: 'Formato', value: 'XLSX/DOCX' }, { label: 'Norma', value: 'NBR 8800' }], tags: ['Cálculo', 'Memória', 'Estrutural'] },
+  { title: 'Modelo de relatório de análise de falha', category: 'Relatórios', image: '/img/stress_analysis.png', status: 'Template', desc: 'Estrutura para investigação de causas raiz e recomendações após falhas.', details: [{ label: 'Formato', value: 'DOCX' }, { label: 'Metodologia', value: 'RCA' }], tags: ['Falha', 'Manutenção', 'Análise'] },
+  { title: 'Modelo de relatório de inspeção NR-13', category: 'Modelos de Laudo', image: '/img/proj6.jpeg', status: 'Template', desc: 'Checklist e relatório completo para conformidade com a NR-13.', details: [{ label: 'Formato', value: 'DOCX' }, { label: 'Norma', value: 'NR-13' }], tags: ['NR-13', 'Vasos', 'Caldeiras'] },
+  { title: 'Modelo de relatório de inspeção de tubulação', category: 'Relatórios', image: '/img/piping_system.png', status: 'Template', desc: 'Documentação específica para monitoramento de linhas de tubulação industrial.', details: [{ label: 'Formato', value: 'DOCX' }, { label: 'Norma', value: 'API/ASME' }], tags: ['Tubulação', 'API', 'Garantia'] },
+  { title: 'Modelo de relatório de adequação normativa', category: 'Técnicos', image: '/img/documentation_templates.png', status: 'Template', desc: 'Relatório para levantamento de pendências e plano de ação corretivo.', details: [{ label: 'Formato', value: 'DOCX' }, { label: 'Foco', value: 'Compliance' }], tags: ['Adequação', 'Normas', 'Compliance'] },
+  { title: 'Modelo de relatório de avaliação de risco mecânico', category: 'Técnicos', image: '/img/docs/hazard_assessment.jpg', status: 'Template', desc: 'Análise de riscos mecânicos em máquinas e processos produtivos.', details: [{ label: 'Formato', value: 'DOCX' }, { label: 'Setor', value: 'Segurança' }], tags: ['Risco', 'Segurança', 'Mecânica'] },
+  { title: 'Modelo de especificação técnica de equipamento', category: 'Técnicos', image: '/img/proj2.jpeg', status: 'Template', desc: 'Documento para compra e contratação de equipamentos industriais.', details: [{ label: 'Formato', value: 'DOCX' }, { label: 'Foco', value: 'Suprimentos' }], tags: ['ET', 'Compra', 'Equipamento'] },
+  { title: 'Modelo de data book de fabricação/montagem', category: 'Relatórios', image: '/img/proj4.jpeg', status: 'Template', desc: 'Índice e estrutura para compilação de documentos de fabricação.', details: [{ label: 'Formato', value: 'DOCX' }, { label: 'Controle', value: 'Qualidade' }], tags: ['Data Book', 'Qualidade', 'Solda'] },
+  { title: 'Modelo de relatório as built', category: 'Relatórios', image: '/img/blueprint_technical.png', status: 'Template', desc: 'Relatório de conformidade entre projeto e obra executada.', details: [{ label: 'Formato', value: 'DOCX' }, { label: 'Fase', value: 'Pós-Obra' }], tags: ['As Built', 'Obra', 'Projeto'] },
+  { title: 'Modelo de relatório de inspeção de soldagem', category: 'Relatórios', image: '/img/proj7.jpeg', status: 'Template', desc: 'Registro de inspeção visual e acompanhamento de juntas soldadas.', details: [{ label: 'Formato', value: 'DOCX' }, { label: 'Norma', value: 'AWS/ASME' }], tags: ['Soldagem', 'Inspeção', 'Joints'] },
+  { title: 'Modelo de plano de manutenção mecânica', category: 'Planejamento', image: '/img/proj3.jpeg', status: 'Template', desc: 'Cronograma e lista de atividades para manutenção preventiva.', details: [{ label: 'Formato', value: 'XLSX' }, { label: 'Tipo', value: 'Preventiva' }], tags: ['Manutenção', 'PCM', 'Gás'] },
+  { title: 'Modelo de escopo técnico para parada geral', category: 'Planejamento', image: '/img/hero-industrial.jpg', status: 'Template', desc: 'Definição de escopo para contratação de serviços em paradas gerais.', details: [{ label: 'Formato', value: 'DOCX' }, { label: 'Evento', value: 'Parada' }], tags: ['Parada', 'Escopo', 'Contratos'] },
+  { title: 'Modelo de lista técnica de materiais (BOM)', category: 'Planejamento', image: '/img/docs/industrial_office.jpg', status: 'Template', desc: 'Estrutura para levantamento e controle de materiais em projetos.', details: [{ label: 'Formato', value: 'XLSX' }, { label: 'Foco', value: 'Materiais' }], tags: ['BOM', 'Lista', 'Suprimentos'] },
+  { title: 'Modelo de procedimento de montagem/manutenção', category: 'Planejamento', image: '/img/quem-somos.jpg', status: 'Template', desc: 'Instruções passo a passo para montagem e manutenção segura.', details: [{ label: 'Formato', value: 'DOCX' }, { label: 'Setor', value: 'Operação' }], tags: ['Procedimento', 'Montagem', 'Safe'] },
 ]
 
 const filteredProjects = computed(() =>

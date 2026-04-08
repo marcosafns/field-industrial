@@ -23,9 +23,9 @@
             Fundada para transformar a engenharia industrial
           </h2>
           <div class="scroll-reveal scroll-reveal-delay-2 space-y-4 text-gray-600 leading-relaxed">
-            <p>A Field Industrial nasceu da visão de profissionais com ampla experiência no setor industrial, unidos pelo objetivo de oferecer serviços de engenharia com alto padrão técnico e comprometimento total com os clientes.</p>
-            <p>Atuamos em projetos de grande complexidade, sempre com foco em segurança, conformidade normativa e excelência técnica. Nossa equipe é formada por engenheiros especializados, inspetores certificados e técnicos altamente qualificados.</p>
-            <p>Ao longo da nossa trajetória, consolidamos uma reputação sólida no mercado industrial, sendo referência em inspeção, supervisão e desenvolvimento de projetos mecânicos.</p>
+            <p>Fundada em 2022, a Field Industrial é uma empresa de engenharia mecânica especializada em equipamentos estáticos industriais e tubulações de processo.</p>
+            <p>Atuamos no desenvolvimento de projetos de engenharia, engenharia reversa, avaliações técnicas e suporte especializado para ativos industriais, sempre com foco em segurança, confiabilidade e viabilidade econômica.</p>
+            <p>Nossa equipe reúne décadas de experiência prática na indústria, transformando desafios de campo em soluções de engenharia seguras e eficientes.</p>
           </div>
         </div>
         <div class="scroll-reveal scroll-reveal-delay-3 relative">
